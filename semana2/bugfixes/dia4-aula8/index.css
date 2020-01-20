@@ -43,11 +43,10 @@ div img {
     border-radius: 5px;
     font-size: 20px;
     color: white;
-}
+    display: block; margin: auto; margin-top: 100px}
 
 .botao-amarelo:hover {
-    background-color: #c44f00;
-}
+    background-color: #c44f00; }
 
 .container {
     height: 500px;
@@ -124,7 +123,7 @@ td button:hover {
 }
 
 .container-do-search img:hover {
-    opacity: 1,5;
+    opacity: 30%;
 }
 
 .container-do-search img:active {
