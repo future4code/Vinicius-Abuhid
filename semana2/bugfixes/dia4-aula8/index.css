@@ -146,3 +146,5 @@ td button:active {color: white;}
 #back-button:hover {
     background-color: #635a3d
 }
+
+#pesquisa {border:none; border-bottom: solid black 1px;}
