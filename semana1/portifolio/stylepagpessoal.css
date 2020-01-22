@@ -10,7 +10,18 @@
 .mainimgportifolio {width: 250px; height: 280px; margin-left: 100px;}
 #mainimgorç {width: 400px; height: 400px; display: block; margin-left: auto; margin-right: auto; margin-top: 40px;}
 
+semana1-projeto
 #footer {width: 100%; background-color: grey; padding-top: 5px; padding-left: 10px; padding-bottom: 5px;}
 #nome {margin-bottom: 5px;}
 #email {margin-bottom: 5px;}
 #mensagem {height: 40px;}
+=======
+#footer {width: 100%; background-color:gray; padding-top: 5px; padding-left: 10px; padding-bottom: 5px;}
+#footerform {display: inline;}
+form {margin: 0px; display: inline;}
+#nome {margin-bottom: 5px;}
+#email {margin-bottom: 5px;}
+#mensagem {height: 40px;}
+#footerrs {display: inline;}
+.footerimgrs {width: 40px; height: 40px; margin-right: 10px;}
+master
