@@ -1,0 +1,49 @@
+#container {width: 600px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-around;}
+
+.numeral {border:black solid 1px; display: flex; justify-content: center; align-items: center; margin-top: 10px;}
+
+#zero {width: 600px; background-color:red; color: red; border:none; margin-top: none;height: 70px;}
+#um {width: 180px; background-color:   blue; height: 80px;}
+#dois {width: 180px; background-color: yellow;height: 80px}
+#três {width: 180px; background-color: green; height: 80px}
+#quatro {width: 180px; background-color: blue; height: 80px}
+#cinco  {width: 180px; background-color: yellow; height: 80px}
+#seis   {width: 180px; background-color: green; height: 80px}
+#sete {width: 280px; background-color: black; color: white;height: 200px}
+#oito {width: 280px; background-color: black; color: white; height: 200px}
+#nove {width: 180px; background-color: white;height: 80px}
+#dez  {width: 180px; background-color: white;height: 80px}
+#onze {width: 180px; background-color: white; height: 80px}
+
+@media screen and (min-device-width : 421px) and (max-device-width : 800px) {
+#container {width: 400px;}
+#zero {width: 400px; background-color:red; color: red; border:none; margin-top: none;height: 70px;}
+#um {width: 190px; background-color:   blue; height: 80px;}
+#dois {width: 190px; background-color: yellow;height: 80px}
+#três {width: 390px; background-color: green; height: 80px}
+#quatro {width: 190px; background-color: blue; height: 80px}
+#cinco  {width: 190px; background-color: yellow; height: 80px}
+#seis   {width: 390px; background-color: green; height: 80px}
+#sete {width: 190px; background-color: black; color: white;height: 200px}
+#oito {width: 190px; background-color: black; color: white; height: 200px}
+#nove {width: 190px; background-color: white;height: 80px}
+#dez  {width: 190px; background-color: white;height: 80px}
+#onze {width: 390px; background-color: white; height: 80px}
+}
+
+@media screen and (max-device-width : 420px) {
+    #container {width: 200px;}
+    #zero {width: 200px; background-color:red; color: red; border:none; margin-top: none;height: 70px;}
+    #um {width: 190px; background-color:   blue; height: 80px;}
+    #dois {width: 190px; background-color: yellow;height: 80px}
+    #três {width: 190px; background-color: green; height: 80px}
+    #quatro {width: 190px; background-color: blue; height: 80px}
+    #cinco  {width: 190px; background-color: yellow; height: 80px}
+    #seis   {width: 190px; background-color: green; height: 80px}
+    #sete {width: 190px; background-color: black; color: white;height: 200px}
+    #oito {width: 190px; background-color: black; color: white; height: 200px}
+    #nove {width: 190px; background-color: white;height: 80px}
+    #dez  {width: 190px; background-color: white;height: 80px}
+    #onze {width: 190px; background-color: white; height: 80px}
+}
+
