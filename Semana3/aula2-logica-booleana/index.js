@@ -45,6 +45,12 @@ Exercício 2
     console.log("Qual o seu filme de super-heroi preferido?" + " O meu filme de super-heroi preferido é " + resposta4)
     const resposta5 = prompt("Se você fosse um pokemon, qual você seria?")
     console.log("Se você fosse um pokemon, qual você seria?" + " Se eu fosse um pokemon eu seria um " + resposta5)
+
+Exercício 3
+    const valorAPagar = 280*0.5
+    console.log("R$"+valorAPagar)
+    const Desconto =  valorAPagar*0.15
+    console.log("R$" + (valorAPagar - Desconto))
 */
     let array
     console.log('I. ', array)
