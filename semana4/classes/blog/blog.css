@@ -9,5 +9,13 @@ input {
     margin-bottom: 20px;
 }
 textarea {
-    height: 200px;
+    height: 300px;
+}
+button {
+    background-color: grey;
+    width: 100px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
