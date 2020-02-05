@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="port-be">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="planner.css">
+    <script src="planner.js" defer></script>
+</head>
+<body>
+    <header>
+            <label class="t">Nova tarefa:</label>
+            <input type="text" name="texto" id="texto" class="t">
+            <select name="Dias da semana" id="Dias da semana" class="t">
+                <option value="segunda">Segunda-feira</option>
+                <option value="terça">Terça-feira</option>
+                <option value="quarta">Quarta-feira</option>
+                <option value="quinta">Quinta-feira</option>
+                <option value="sexta">Sexta-feira</option>
+                <option value="sabado">Sábado</option>
+                <option value="domingo">Domingo</option>
+            </select>
+            <button onclick= "registrarTarefas()" class="t">Enviar Tarefa</button>
+    </header>
+    <main>
+        <div class="semana"><h3>Segunda-feira</h3><ul id="lista-segunda"></ul></div>
+        <div class="semana"><h3>Terça-feira</h3><ul id="lista-terça"></ul></div>
+        <div class="semana"><h3>Quarta-feira</h3><ul id="lista-quarta"></ul></div>
+        <div class="semana"><h3>Quinta-feira</h3><ul id="lista-quinta"></ul></div>
+        <div class="semana"><h3>Sexta-feira</h3><ul id="lista-sexta"></ul></div>
+        <div class="semana"><h3>Sábado</h3><ul id="lista-sabado"></ul></div>
+        <div class="semana"><h3>Domingo</h3><ul id="listadomingo"></ul></div>
+    </main>
+    <footer>
+        <button onclick= "esvaziarLista()">Esvaziar lista de tarefas</button>
+    </footer>
+</body>
+</html>

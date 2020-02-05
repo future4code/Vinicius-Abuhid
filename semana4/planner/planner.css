@@ -1,0 +1,32 @@
+header {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: orange;
+}
+.t {
+    margin-right: 5px;
+}
+main {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr)
+}
+
+.semana {
+    border: 1px black solid;
+    height: 600px;
+    text-align: center;
+}
+h3 {
+    border-bottom: 1px black solid;
+}
+a:active {
+    text-decoration: line-through;
+}
+footer {
+    background-color: orange;
+    text-align: center;
+    padding: 20px;
+}
