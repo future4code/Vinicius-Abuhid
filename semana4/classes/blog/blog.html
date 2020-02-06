@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="blog.css">
+    <script src="blog.js" defer></script>
+</head>
+<body>
+    <h1>Escreva aqui o seu Post</h1>
+    <section id="formulario">
+        <form action="bloghome.html">
+            <label>Título</label>
+            <input type="text" id="titulo" name="titulo" class="campo">
+            <label>Autor</label>
+            <input type="text" id="autor" name="autor" class="campo">
+            <label>E-mail</label>
+            <input type="email" id="email" class="campo">
+            <label>URL da imagem</label>
+            <input type="text" id="image">
+            <label>Conteúdo do Post</label>
+            <textarea placeholder="Conte-nos uma história..." id="conteudo" class="campo"></textarea>
+            <button onclick="criarPost()" id="publicar">Criar Post</button>
+        </form>
+    </section>
+    <button id="voltar">Voltar para a homepage</button>
+</body>
+</html>

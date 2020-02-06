@@ -1,0 +1,28 @@
+#sessaoposts {
+    text-align: center;
+}
+form {
+    border: black 1px solid;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+
+}
+input {
+    margin-bottom: 20px;
+}
+textarea {
+    height: 100px;
+}
+button {
+    background-color: grey;
+    width: 100px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#voltar {
+    width: 200px;
+    margin-top: 20px;
+}
