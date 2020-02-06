@@ -1,4 +1,7 @@
-#formulario {
+#sessaoposts {
+    text-align: center;
+}
+form {
     border: black 1px solid;
     display: flex;
     flex-direction: column;
@@ -9,7 +12,7 @@ input {
     margin-bottom: 20px;
 }
 textarea {
-    height: 300px;
+    height: 100px;
 }
 button {
     background-color: grey;
@@ -18,4 +21,8 @@ button {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+#voltar {
+    width: 200px;
+    margin-top: 20px;
 }
