@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="port-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="despesas.css">
+    <script src="despesas.js" defer></script>
+</head>
+<body>
+    <h1>Controlador de despesas</h1>
+    <section id="sessao1">
+        <h3>Cadastrar despesas</h3>
+        <!-- <form> -->
+            <label>Valor</label>
+            <input type="number" class="cadastro" id="valordesp">
+            <label>Tipo</label>
+            <select class="cadastro" id="tipodesp">
+                <option value="casa">Casa</option>
+                <option value="transporte">Transporte</option>
+                <option value="rango">Alimentação</option>
+                <option value="outros">Outros</option>
+            </select>
+            <label>Descrição</label>
+            <input type="text" class="cadastro" id="descriçaodesp">
+            <button onclick="cadastrarDespesa()">Cadastrar despesa</button>
+        </form>
+    </section>
+    <section id="sessao2">
+        <h3>Despesas Detalhadas</h3>
+        <!-- <form> -->
+            <label>Tipo</label>
+            <select id="tipodesp2">
+                <option value="casa">Casa</option>
+                <option value="transporte">Transporte</option>
+                <option value="rango">Alimentação</option>
+                <option value="outros">Outros</option>
+            </select>
+            <label>Valor máximo</label>
+            <input type="number" id="valormax">
+            <label>Valor mínimo</label>
+            <input type="number" id="valormin">
+            <button onclick="filtragem()">Filtar</button>
+            <button>Limpar filtros</button>
+        </form>
+    </section>
+    <section>
+        <h3>Extrato</h3>
+        <h4>Valor Total:</h4>
+        <span id="valorsomado">0</span>
+        <div id="displaydesp">
+        </div>
+    </section>
+</body>
+</html>
