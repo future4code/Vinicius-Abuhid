@@ -1,0 +1,13 @@
+#divsmallcardgeral {
+    border: solid black 1px;
+    display: flex;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 15px;
+    align-items: center;
+}
+#titulosmallcard {
+    margin-left: 15px;
+    margin-right: 15px;
+}
