@@ -6,32 +6,36 @@ class Post extends React.Component {
     super(props)
     this.state = {
       numerodelikes: 0,
-      numerodecomments: 0
+      numerodecomments: 0,
+      barracoments: "",
+      imagemlike: "https://img.icons8.com/cotton/2x/like.png"
     }
   }
 
   contadorLike = () =>{
     if (this.state.numerodelikes === 0){
     this.setState ({numerodelikes:1})
+    this.setState ({imagemlike: "https://i.ya-webdesign.com/images/gray-heart-png.png" })
     }
     else this.setState ({numerodelikes:0})
   }
   contadorComments = () => {
     this.setState ({numerodecomments:+1})
+    this.setState ({barracoments: <input type="text" placeholder="Deixe aqui seu comentário"/>})
   }
   
   render(){
     return (
     <section>
     <div id="dadosdoautor">
-    <img id="fotoperfil"/>
+    <img src={this.props.imgautor}id="fotoperfil"/>
     <h4>{this.props.autordopost}</h4>
     </div>
     <img src={this.props.imagempost} id="post"/>
     <div id="barrainteração">
     <div id="likes">
-    <a href="#"><img src="https://img.icons8.com/cotton/2x/like.png" 
-    class="icone" id="like" onClick={this.contadorLike}/></a>
+    <a href="#"><img src={this.state.imagemlike} 
+    class="icone" id="like" onClick={this.contadorLike} /></a>
     <p id="contadordelike">{this.state.numerodelikes}</p>
     </div>
     <div id="comments">
@@ -40,6 +44,9 @@ class Post extends React.Component {
     <p id="contadordecoments">{this.state.numerodecomments}</p>
     </div>
     </div>
+    <div id="divcoments">
+    {this.state.barracoments}
+    </div>
     </section>
   );
   }
@@ -47,10 +54,3 @@ class Post extends React.Component {
 
 export default Post;
 
-
-// "https://upload.wikimedia.org/wikipedia/commons/4/48/Pequena_montanha_de_pedra.jpg"
-// https://img.icons8.com/cotton/2x/like.png
-// // https://pngimage.net/wp-content/uploads/2018/06/speech-bubble-emoji-png-.png
-
-// {this.state.numerodeclicks} onClick={this.contadorLike}
-// 
