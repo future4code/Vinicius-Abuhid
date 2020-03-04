@@ -6,23 +6,34 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      usuario: [
-        {
-          email: "",
-          id: "",
-          name: ""
-          
-        }
-      ]
+      mudaDeTela: false,
+      telaMostrada: <Form/>
+    }
+  }
+
+  mudaTela = () => {
+    const valor = this.state.mudaDeTela
+    this.setState({
+      mudaDeTela: !valor
+    })
+    if (this.state.mudaDeTela){
+      this.setState({
+        telaMostrada: <Form/>
+      })
+    }
+    else {
+      this.setState({
+        telaMostrada: <ListaUsuarios/>
+      })
     }
   }
 
   render(){
+    const textoDoBotao = this.state.mudaDeTela?  'Cadastrar usuário':'Ver lista de cadastro'
     return (
       <div>
-        <button>Olá</button>
-        <Form/>
-        <ListaUsuarios/>
+        <button onClick={this.mudaTela}>{textoDoBotao}</button>
+        {this.state.telaMostrada}
       </div>
     );
   }

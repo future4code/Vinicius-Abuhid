@@ -7,11 +7,14 @@ const FormWrapper = styled.div`
     border: solid black 1px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding: 10px;
-    align-items: center
+    align-items: center;
+    width: 25%;
+    height: 150px
 `
 const InputWrapper= styled.div`
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 `
 
 const StyledButton = styled.button`
@@ -29,38 +32,41 @@ class Form extends React.Component{
         }
     }
 
+    baseURL = 'https://us-central1-future4-users.cloudfunctions.net/api'
+
     guardaNome = (e) => {
         this.setState({
             nome: e.target.value
         })
-        console.log(this.state.nome)
     }
 
     guardaEmail = (e) => {
         this.setState({
             email: e.target.value
         })
-        console.log(this.state.email)
     }
 
     addNovoUsuario = () => {
-        console.log("tests")
         const novoUsuario = {
-            "name": this.state.nome,
-            "email": this.state.email
+            name: this.state.nome,
+            email: this.state.email
         }
         const request = axios.post(
-            'https://us-central1-future4-users.cloudfunctions.net/api', novoUsuario, {headers : {
-                'auth': 'string'}}, {headers: {
-                    'Content-Type': 'application/json'}}
-                )
+            `${this.baseURL}/users/createUser`, novoUsuario,
+             {headers : {
+            'api-token': 'string', 'Content-Type': 'application/json'}}
+            )
 
-        request.then((resposta) => {
-        console.log(resposta)
-        }).catch((erro) => {
-        console.log(erro)
+        request.then(response => {
+        alert("Usuário cadastrado")
+        }).catch(error => {
+        alert("Erro ao cadastrar o usuário")
         })
         
+        this.setState({
+            nome: "",
+            email: ""
+        })
     }
 
     render(){
