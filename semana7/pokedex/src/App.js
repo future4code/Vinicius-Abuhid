@@ -108,7 +108,7 @@ class Pokedex extends React.Component {
         <Header>
           <div>
             <PokeInput type="text" 
-            placeholder="Digite o nome de um pokémon"
+            placeholder="Digite o nome de um pokémon..."
             value = {this.state.pesquisa} 
             onChange={this.salvaNome}/>
             <button
