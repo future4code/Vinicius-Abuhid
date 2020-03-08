@@ -7,11 +7,18 @@ import styled from 'styled-components'
 import music from './Assets/music.png'
 import Footer from './Components/Footer';
 import audio from './Assets/audio.png'
+import PLInfo from './Components/PLInfo';
+import FormAddMusic from './Components/FormAddMusic';
 
 
 const ListaContainer = styled.div`
   display: flex;
   justify-content: center;
+  background-image: url(${music});
+  background-repeat: no-repeat;
+  background-position: center center;
+  ackground-attachment: fixed;
+  min-height: 800px;
 `
 
 const Styledimg = styled.img`
@@ -21,7 +28,8 @@ const Styledimg = styled.img`
 const UlWrapper = styled.ul`
   list-decoration: none;
   text-align: center;
-  list-style-image: url(${audio})
+  list-style-image: url(${audio});
+  font-weight: bolder;
 `
 
 const WrapperGeral = styled.div`
@@ -29,7 +37,12 @@ const WrapperGeral = styled.div`
   flex-direction: column;
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
-  position: relative
+  position: relative;
+  width: 80%
+`
+
+const Audio = styled.audio`
+  margin: 5px 0
 `
 
 const baseURL = 'https://us-central1-spotif4.cloudfunctions.net/api'
@@ -39,6 +52,12 @@ class App extends React.Component{
       super(props)
       this.state = {
           listaDasPLs : [],
+          infoPL:"",
+          infoPL2: "",
+          idPInfo: "",
+          listaDeMusicas: "",
+          formSendMusic: "",
+          idPForm: "",
       }
   }
 
@@ -76,12 +95,56 @@ class App extends React.Component{
   }
 
   visualizarMusicas = (idPL) => {
-    const musicasPLPromise = axios.get(`${baseURL}/playlists/getPlaylistMusics/${idPL}`, 
+    if (idPL === this.state.idPInfo){
+      this.setState({
+         idPInfo: "",
+         idPForm: ""
+      })
+    }
+    else
+    {const musicasPLPromise = axios.get(`${baseURL}/playlists/getPlaylistMusics/${idPL}`, 
       {headers: {auth: 'string'}}
       )
     musicasPLPromise.then(response => {
       console.log(response.data.result.musics)
+      this.setState({
+        idPInfo: idPL,
+        listaDeMusicas: response.data.result.musics.map((item, index)=> {
+        return  <li key={index}>{item.name}{" - "}{item.artist}
+                  <Audio controls src={item.url} type="audio"/>
+                </li>
+        })
+      })
     }).catch(error => {
+      console.log(error)
+    })}
+  }
+
+  adicionarMusica = (idPL) => {
+    this.setState({
+      idPForm: idPL
+    })
+
+  }
+
+  enviarMusicas = (nome, artista, URL)=> {
+    const infoMusica = {
+      "playlistId": this.state.idPForm, 
+      "music": { 
+          "name": nome, 
+          "artist": artista,
+          "url": URL
+      }
+    }
+    const promessaEnvioMusica = axios.put(`${baseURL}/playlists/addMusicToPlaylist`, 
+    infoMusica, {headers: {auth: 'string'}})
+    promessaEnvioMusica.then((response)=> {
+      console.log(response.data)
+      this.setState({
+        idPInfo : ""
+      })
+      this.visualizarMusicas(this.state.idPForm)
+    }).catch((error)=>{
       console.log(error)
     })
   }
@@ -89,7 +152,7 @@ class App extends React.Component{
   render(){
     const listaAuxiliar = this.state.listaDasPLs
     const listaAtualizada = listaAuxiliar.length === 0 ? 
-    "Desculpe, não há nenhuma playlist cadastrada aé o momento... =("
+    "Desculpe, não há nenhuma playlist cadastrada até o momento... =("
     : listaAuxiliar.map((pl)=> {
       return  <li key={pl.id}>
                 <CadaPL 
@@ -97,6 +160,15 @@ class App extends React.Component{
                 verMusicas = {()=> this.visualizarMusicas(pl.id)}
                 apagaPL = {()=> this.deletaPL(pl.id)}
                 ></CadaPL>
+                {this.state.infoPL = pl.id === this.state.idPInfo?
+                <PLInfo
+                musicas={this.state.listaDeMusicas}
+                addMusic = {()=>this.adicionarMusica(pl.id)}
+                /> : ""}
+                {this.state.formSendMusic = pl.id === this.state.idPForm? 
+                <FormAddMusic
+                sendMusic={this.enviarMusicas}
+                /> : "" }
               </li>
     })
     return (
@@ -112,7 +184,7 @@ class App extends React.Component{
               <h3>Minhas playlists</h3>
               {listaAtualizada}
             </UlWrapper>
-            <Styledimg src={music}/>
+            {/* <Styledimg src={music}/> */}
           </ListaContainer>
           <Footer/>
         </WrapperGeral>

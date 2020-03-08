@@ -1,11 +1,9 @@
 /* div{
+    background-repeat: no-repeat;
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
+    font-weight: 300;
+    align-items: flex-start;
     justify-content: center;
-    align-items: center;
-    padding: 15px;
-    border-radius: 15%;
-    margin-top: 5px;
-    justify-content: left;
-    align-items: flex-end;
+    min-height: 500px;
 } */

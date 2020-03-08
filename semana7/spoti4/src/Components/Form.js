@@ -13,7 +13,6 @@ const StyledForm = styled.div`
 `
 
 const Botao = styled.button`
-    border-radius: 5%;
     margin-top: 10px;
 `
 
