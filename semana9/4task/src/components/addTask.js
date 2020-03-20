@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import {addTask} from '../actions/index'
+import {addTask, createTask} from '../actions/index'
 
 class AddTask extends React.Component {
     constructor(props){
@@ -32,29 +32,20 @@ class AddTask extends React.Component {
                 <button
                 onClick={this.addNewTask}
                 >
-                    Add task
+                Add task
                 </button>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state)=> {
-    
-}
 
 const mapDispatchToProps = dispatch => {
     return {
         addTask: text => {
-            const action = addTask(text)
-            dispatch(action)}
+            dispatch(createTask(text))
+        }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
-
-//O onClick é conectado ao estado por meio do connect. O connect dá esse acesso por meio das
-// das variáveis mapStateToProps, mapDispatchToProps que recebem props. Aí, por essas props
-// o componente pode passar o que quiser para o estado e interagir com ele. Porém, se a intenção
-// for de alterar o estado, tem que chamar o dispatch que dá o acesso ao reducer que verifica se as
-// informações são necessárias ou não para alterar o estado
+export default connect(null, mapDispatchToProps)(AddTask);

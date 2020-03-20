@@ -1,6 +1,5 @@
-// actions = alterações no estado global
-// create action = função que vai pegar informações do componente, por meio do connect e levar
-//ao reducer por meio do dispatch
+import axios from 'axios'
+
 export const addTask = (text)=> {
    return {type: 'ADD_TASK',
     payload: {
@@ -8,38 +7,69 @@ export const addTask = (text)=> {
     }}
 }
 
-// const toggleTask = (id)=> {
-//     return {type: 'TOGGLE_TASK',
-//      payload: {
-//          id
-//      }}
-// }
+export const completeAllTask = ()=> {
+    return {type: 'COMPLETE_ALL_TASK'}
+}
 
-// const addTask = (text)=> {
-//     return {type: 'ADD_TASK',
-//      payload: {
-//          text
-//      }}
-// }
+export const setFilter = (filter)=> {
+    return {type: 'SET_FILTER',
+        payload: {
+            filter
+        }
+    }
+}
+const updateList = (list) => {
+    return{
+        type: 'UPDATE_LIST',
+        payload :{
+            list
+        }
+    }
+}
 
-// const deleteTask = (id)=> {
-//     return {type: 'DELETE_TASK',
-//      payload: {
-//          id
-//      }}
-// }
+export const createTask = text => async (dispatch, getState) => {
+    const newTask = {
+        text
+    }
+    const result = await axios.post(
+        'https://us-central1-missao-newton.cloudfunctions.net/reduxTodo/vinicius/todos',
+        newTask
+    )
+    dispatch(
+        addTask(
+          result.data.todo.text
+        )
+      );
+};
 
-// const completeAllTask = (text)=> {
-//     return {type: 'COMPLETE_ALL_TASK'}
-// }
+export const showTasks = () => async (dispatch, getState) => {
+    const result = await axios.get(
+        'https://us-central1-missao-newton.cloudfunctions.net/reduxTodo/vinicius/todos'
+    )
+    dispatch(
+        updateList(
+          result.data
+        )
+      );
+};
 
-// const deleteAllComplete = (text)=> {
-//     return {type: 'DELETE_ALL_COMPLETE'}
-// }
+export const doneTask = (id) => async(dispatch, getState) => {
+    const result = await axios.put(
+        `https://us-central1-missao-newton.cloudfunctions.net/reduxTodo/vinicius/todos/${id}/toggle`
+    )
+    dispatch(showTasks())
+}
 
-// const setFilter = (filter)=> {
-//     return {type: 'SET_FILTER',
-//      payload: {
-//          filter
-//      }}
-// }
+export const deleteCompletedTasks = () => async (dispatch, getState) => {
+    const result = await axios.delete(
+        'https://us-central1-missao-newton.cloudfunctions.net/reduxTodo/vinicius/todos/delete-done'
+    )
+    dispatch(showTasks())
+}
+
+export const deleteOnlyOneTask = (id) => async (dispatch, getState) => {
+    const result = await axios.delete(
+        `https://us-central1-missao-newton.cloudfunctions.net/reduxTodo/vinicius/todos/${id}`
+    )
+    dispatch(showTasks())
+}
