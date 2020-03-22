@@ -6,18 +6,17 @@ const initialState = {
       photo: "",
       bio: ""
     },
-    myMatches: ''
+    myMatches: []
 }
 
 const profiles = (state = initialState, action) => {
   switch(action.type){
   case 'GET_PROFILE':
-    console.log(state.myMatches)
     return {
+      ...state,
       profile: action.payload
     }
   case 'DISPLAY_MATCHES':
-    console.log(action.payload.matchList)
     return {
       ...state,
       myMatches: action.payload.matchList

@@ -19,10 +19,11 @@ export class SwipeScreen extends Component {
 	}
 
 	componentDidMount() {
-		this.props.showProfiles()
-		if (!this.props.profileToSwipe && this.props.getProfileToSwipe) {
-			this.props.getProfileToSwipe()
-		}
+		if (this.props.renderOrnot){
+		this.props.showProfiles()}
+		// if (!this.props.profileToSwipe && this.props.getProfileToSwipe) {
+		// 	this.props.getProfileToSwipe()
+		// }
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
@@ -35,15 +36,15 @@ export class SwipeScreen extends Component {
 		if (option === 'like'){
 			this.props.likedProfile(this.props.profileID)
 		}
-		// let currentAnimation = option === 'dislike' ? swipeRight : swipeLeft
+		let currentAnimation = option === 'dislike' ? swipeRight : swipeLeft
 		
-		// // if (this.state.currentAnimation === null) {
-		// // 	this.setState({currentAnimation: currentAnimation})
-		// // }
+		if (this.state.currentAnimation === null) {
+			this.setState({currentAnimation: currentAnimation})
+		}
 
-		// // if (this.props.profileToSwipe) {
-		// // 	this.props.chooseProfile(this.props.profileToSwipe.id, option === 'like')
-		// // }
+		if (this.props.profileToSwipe) {
+			this.props.likedProfile(this.props.profileToSwipe.id, option === 'like')
+		}
 		this.props.showProfiles()
 	}
 
@@ -76,16 +77,11 @@ export class SwipeScreen extends Component {
 	}
 }
 
-SwipeScreen.propTypes = {
-	goToMatchScreen: PropTypes.func.isRequired,
-	chooseProfile: PropTypes.func.isRequired,
-	getProfileToSwipe: PropTypes.func.isRequired,
-	profileToSwipe: PropTypes.object,
-}
-
 const mapStateToProps = (state) => ({
 	profileToSwipe: state.profiles.profile,
-	profileID: state.profiles.profile.id
+	profileID: state.profiles.profile.id,
+	currentPage: state.routes.currentPage,
+	renderOrnot: state.routes.renderSwipeScreen
 })
 
 const mapDispatchToProps = (dispatch) => {

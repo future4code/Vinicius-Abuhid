@@ -45,18 +45,12 @@ class MatchScreen extends Component {
 	}
 }
 
-MatchScreen.propTypes = {
-	goToSwipeScreen: PropTypes.func.isRequired,
-	getMatches: PropTypes.func.isRequired,
-	matches: PropTypes.array
-}
-
 const mapStateToProps = state => ({
 	myMatches: state.profiles.myMatches
 })
 
 const mapDispatchToProps = dispatch => ({
-	goToSwipeScreen: () => dispatch(updateCurrentPage('SwipeScreen')),
+	goToSwipeScreen: () => dispatch(updateCurrentPage('SwipeScreen', false)),
 	getAllMatches: () => dispatch(getMyMatches())
 })
 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
-import {clearSwipes} from '../../actions/profiles'
+import {clearSwipesFromSwpiePage, clearSwipesFromMatchPage } from '../../actions/profiles'
 import styled from 'styled-components'
 
 const ClearButton = styled.button`
@@ -10,21 +10,41 @@ const ClearButton = styled.button`
 	right: 5px;
 `
 
-function ClearButtonWrapper(props) {
-	return <ClearButton onClick={props.clearSwipes}>Limpar swipes e matches</ClearButton>
-}
+class ClearButtonWrapper extends React.Component{
+	constructor(props){
+		super(props)
+	}
 
-ClearButtonWrapper.propTypes = {
-	clearSwipes: PropTypes.func.isRequired
+	clearSwipes = () => {
+		if (this.props.currentPage === "SwipeScreen"){
+			this.props.clearSwipesFromSwpiePage()
+		}
+		else if (this.props.currentPage === "MatchScreen"){
+			this.props.clearSwipesFromMatchPage()
+		}
+	}
+
+	render(){
+		return (<ClearButton
+			 	onClick={this.clearSwipes}>Limpar swipes e matches
+				</ClearButton>)
+	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		clearSwipes: () => dispatch(clearSwipes()),
+		clearSwipesFromSwpiePage: () => dispatch(clearSwipesFromSwpiePage()),
+		clearSwipesFromMatchPage: () => dispatch(clearSwipesFromMatchPage())
+	}
+}
+
+function mapStateToProps(state){
+	return {
+		currentPage: state.routes.currentPage
 	}
 }
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(ClearButtonWrapper)
