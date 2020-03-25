@@ -9,10 +9,15 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { generateReducers } from "../../reducers";
 import { routerMiddleware, push } from "connected-react-router";
 import { routes } from "../Router";
+import {getTheTripList} from '../../actions/index'
 
 class ListTripsPageForUsers extends React.Component{
     constructor(props){
         super(props)
+    }
+
+    componentDidMount(){
+        this.props.getTrips()
     }
 
     goToForm = () => {
@@ -24,6 +29,10 @@ class ListTripsPageForUsers extends React.Component{
         return(
             <div>
                 <p>Ola viajante</p>
+                <ul>{this.props.allTrips.map((trip, index)=>{
+                    return <li key={index}>{trip.name}</li>
+                })}
+                </ul>
                 <button 
                     onClick={this.goToForm} >
                     cadastrar
@@ -33,16 +42,17 @@ class ListTripsPageForUsers extends React.Component{
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return{
-        goToFormPage: () => dispatch(push(routes.formPage))
+        allTrips: state.trips.tripList
     }
 }
 
-export default connect(null, mapDispatchToProps)(ListTripsPageForUsers);
+const mapDispatchToProps = dispatch => {
+    return{
+        goToFormPage: () => dispatch(push(routes.formPage)),
+        getTrips: ()=> dispatch(getTheTripList())
+    }
+}
 
-// const mapDispatchToProps = dispatch => {
-//     return{
-//         goToCreatePage: () => dispatch(push(routes.createTrip))
-//     }
-// } 
+export default connect(mapStateToProps, mapDispatchToProps)(ListTripsPageForUsers);

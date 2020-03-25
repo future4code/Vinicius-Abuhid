@@ -12,7 +12,6 @@ if(month<10){
     month='0'+month
 }
 date = year+'-'+month+'-'+day
-console.log(date)
 
 const tripInfo = [
     {
@@ -111,6 +110,7 @@ class CreateTripPage extends React.Component{
                                                 <option>Saturno</option>
                                                 <option>Urano</option>
                                                 <option>Netuno</option>
+                                                <option>Plutão</option>
                                             </select>
                                         </div>
                             }

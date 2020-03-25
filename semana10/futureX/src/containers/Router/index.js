@@ -7,17 +7,16 @@ import FormPage from '../FormPage/index';
 import LoginPage from '../LoginPage/index';
 import ListTripsPageForAdm from '../ListTripsPage/ListTripsPageForAdm'
 import CreateTripPage from "../CreateTripPage/index";
-
-
+import TripsDetailsPage from '../TripsDetailsPage/index'
 
 export const routes = {
   root: "/",
-  listForUsers: '/trips/list-for-users',
-  formPage: '/application-form',
+  listForUsers: '/users/trips/',
+  formPage: '/users/trips/application',
   loginPage: '/login',
-  listForAdm: '/trips/list-for-adm',
-  createTrip: '/trips/create',
-  tripsDetails: '/trips/details'
+  listForAdm: '/adm/trips/',
+  createTrip: '/adm/trips/create',
+  tripsDetails: '/adm/trips/details'
 };
 
 function Router(props) {
@@ -30,7 +29,7 @@ function Router(props) {
         <Route exact path={routes.loginPage} component={LoginPage}/>
         <Route exact path={routes.listForAdm} component={ListTripsPageForAdm}/>
         <Route exact path={routes.createTrip} component={CreateTripPage}/>
-        {/* <Route exact path={routes.listForAdm} component={ListTripsPageForAdm}/> */}
+        <Route exact path={routes.tripsDetails} component={TripsDetailsPage}/>
       </Switch>
     </ConnectedRouter>
   );
