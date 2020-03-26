@@ -1,14 +1,6 @@
 const initialState = {
     tripList: [],
-    candidateDetails: [] 
-    // {
-    //   id: "",
-    //   name: "",
-    //   description: "",
-    //   planet: "",
-    //   durationInDays: "",
-    //   date: ""
-    // }
+    tripDetails: {}
 }
 
 const trips = (state = initialState, action) => {
@@ -16,7 +8,11 @@ const trips = (state = initialState, action) => {
   case 'GET_ TRIPS':
     console.log(action.payload.tripList)
     return {
-      tripList: action.payload.tripList
+      ...state, tripList: action.payload.tripList
+    }
+  case 'GET_ TRIPS_DETAILS':
+    return{
+      ...state, tripDetails: action.payload.tripDetails
     }
   default: 
     return state

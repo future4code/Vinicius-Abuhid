@@ -1,7 +1,9 @@
 import React from 'react'
+import {getTheTripList, sendSubscriptionData} from '../../actions/index'
+import {connect} from 'react-redux'
 
-const country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla",
-"Antigua &; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan",
+const country_list = ["","Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla",
+"Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan",
 "Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda",
 "Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso",
 "Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia",
@@ -22,27 +24,27 @@ const country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Angu
 "South Korea","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname",
 "Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand",
 "Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Uganda",
-"Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela",
+"Ukraine","United Arab Emirates","United Kingdom", "United States of America","Uruguay","Uzbekistan","Venezuela",
 "Vietnam","Yemen","Zambia","Zimbabwe"];
 
 const candidateInfo = [
     {
         label: 'Nome completo',
-        name: 'Nome do candidato',
+        name: 'name',
         type: 'text', 
         required: true,
         pattenr: '[a-zA-Z ]{3,}'
     },
     {
         label: 'Idade',
-        name: 'Idade do candidato',
+        name: 'age',
         type: 'number', 
         required: true,
         min: 18
     },
     {
         label: 'Texto de aplicação',
-        name: 'Texto de aplicação',
+        name: 'applicationText',
         type: 'text', 
         required: true,
         placeholder: 'Por quê você se considera um bom candidato?',
@@ -50,20 +52,14 @@ const candidateInfo = [
     },
     {
         label: 'Profissão',
-        name: 'Profissão do candidato',
+        name: 'profession',
         type: 'text', 
         required: true,
         pattenr: '[a-zA-Z ]{10,}'
     },
     {
         label: 'País',
-        name: 'País do candidato',
-        type: 'select', 
-        required: true
-    },
-    {
-        label: 'Em qual viagem você gostaria de embarcar',
-        name: 'id das viagens',
+        name: 'country',
         type: 'select', 
         required: true
     }
@@ -73,25 +69,38 @@ class FormPage extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            form: {}
+            form: {},
+            tripId: ""
         }
+    }
+
+    componentDidMount(){
+        this.props.getTrips()
     }
 
     handleInputChange = (e) => {
         const { name, value } = e.target;
         this.setState({ form: { ...this.state.form, [name]: value} });
-        console.log(this.state.form)
-      };
+    };
     
-    capturaData =(e) => {
+    handleTripChange = (e) => {
+        console.log(e.target.value)
+        this.setState({
+            tripId: e.target.value
+        })
+        console.log(this.state.tripId)
+    }
+
+    sendForm =(e) => {
         e.preventDefault();
-        console.log(this.state.form)
+        this.props.sendSubscription(this.state.form, this.state.tripId)
+        
     }
 
     render(){
         return(
             <div>
-                <form onSubmit={this.capturaData}>
+                <form onSubmit={this.sendForm}>
                     <h2>Formulário de inscrição</h2>
                     {
                         candidateInfo.map((field, index) => {
@@ -110,27 +119,38 @@ class FormPage extends React.Component{
                                             />
                                         </div>
                             }
-                            else if(field.name === 'País do candidato') {
-                                return <div>
+                            else{
+                                return <div key={index}>
                                             <label>{field.label}</label>
                                             <select 
                                             name={field.name} 
                                             required={field.required}
+                                            onChange={this.handleInputChange}
                                             >
                                             {country_list.map((country, index) => {
                                             return <option key={index} >{country}</option>
                                             })}
                                             </select>
                                         </div>
-                            }            
-                            else{
-                                return  <div>
-                                            <label>{field.label}</label>
-                                            <select name={field.name} ></select>
-                                        </div>
                             }
                         })
                     }
+                    <div>
+                        <label>Selecione uma viagem</label>
+                        <select 
+                        onChange={this.handleTripChange}
+                        value={this.state.tripId}
+                        >
+                        {this.props.allTrips.map((trip, index)=> {
+                            return  <option
+                                    value={trip.id}
+                                    key={index}
+                                    >
+                                    {trip.name} - {trip.planet}
+                                    </option>
+                            })}
+                        </select>
+                    </div>
                     <button type="submit">Enviar</button>
                 </form>
             </div>
@@ -138,4 +158,16 @@ class FormPage extends React.Component{
     }
 }
 
-export default FormPage
+const mapStateToProps = (state) => {
+    return{
+        allTrips: state.trips.tripList
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        getTrips: ()=> dispatch(getTheTripList()),
+        sendSubscription: (userInfo, tripId)=> dispatch(sendSubscriptionData(userInfo,tripId))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(FormPage)

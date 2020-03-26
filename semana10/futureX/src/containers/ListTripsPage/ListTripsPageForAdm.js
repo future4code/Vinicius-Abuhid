@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {push} from 'connected-react-router'
 import {routes} from '../Router'
-import {getTheTripList, getTripDetails} from '../../actions/index'
+import {getTheTripList, getTripDetails, deleteTrip} from '../../actions/index'
 
 class ListTripsPageForAdm extends React.Component{
     constructor(props){
@@ -10,6 +10,10 @@ class ListTripsPageForAdm extends React.Component{
     }
 
     componentDidMount(){
+        const token = window.localStorage.getItem('token')
+        if(token === null){
+            this.props.goToLogin()
+        }
         this.props.getTrips()
     }
 
@@ -17,10 +21,15 @@ class ListTripsPageForAdm extends React.Component{
         this.props.goToCreatePage()
     }
 
-    catchAndgoToDetails = (tripId) => {
-        console.log(tripId)
+    catchTripIdForDetails = (tripId) => {
         this.props.catchTripDetails(tripId)
-        this.props.goToTripsInfoPage()
+    }
+
+    catchTripIdForDelete = (tripId) => {
+        let result = window.confirm('Tem certeza que deseja apagar essa viagem?');
+        if(result){
+            this.props.delTrip(tripId)
+        }
     }
 
     render(){
@@ -32,8 +41,12 @@ class ListTripsPageForAdm extends React.Component{
                         return  <li key={index}>
                                     <p>{trip.name}</p>
                                     <button
-                                    onClick={()=>this.catchAndgoToDetails(trip.id)}>
+                                    onClick={()=>this.catchTripIdForDetails(trip.id)}>
                                     Ver Informações
+                                    </button>
+                                    <button
+                                    onClick={()=>this.catchTripIdForDelete(trip.id)}>
+                                    Deletar viagem
                                     </button>
                                 </li>
                     })}
@@ -57,7 +70,8 @@ const mapDispatchToProps = dispatch => {
         getTrips: ()=> dispatch(getTheTripList()),
         goToCreatePage: () => dispatch(push(routes.createTrip)),
         catchTripDetails: (tripId) => dispatch(getTripDetails(tripId)),
-        goToTripsInfoPage: ()=> dispatch(push(routes.tripsDetails)),
+        goToLogin: ()=> dispatch(push(routes.loginPage)),
+        delTrip : (tripId)=> dispatch(deleteTrip(tripId))
     }
 } 
 

@@ -1,5 +1,8 @@
 import React from 'react'
-
+import {push} from 'connected-react-router'
+import {connect} from 'react-redux'
+import {routes} from '../Router'
+import {addNewTrip} from '../../actions/index'
 
 let date = new Date
 let day = date.getDate()
@@ -16,34 +19,34 @@ date = year+'-'+month+'-'+day
 const tripInfo = [
     {
         label: 'Viagem',
-        name: 'Nome do pacote',
+        name: 'name',
         type: 'text', 
         required: true,
         pattenr: '[a-zA-Z ]{5,}'
     },
     {
         label: 'Planeta',
-        name: 'Nome do planeta de destino',
+        name: 'planet',
         type: 'select', 
         required: true,
     },
     {
         label: 'Data da viagem',
-        name: 'Data da trip',
+        name: 'date',
         type: 'date', 
         required: true,
         min: date
     },
     {
         label: 'Descrição da viagem',
-        name: 'Descrição da trip',
+        name: 'description',
         type: 'text', 
         required: true,
         pattenr: '.{30,}'
     },
     {
         label: 'Tempo da viagem em dias',
-        name: 'Duração da trip',
+        name: 'durationInDays',
         type: 'number', 
         required: true,
         min: 50
@@ -58,6 +61,13 @@ class CreateTripPage extends React.Component{
         }
     }
     
+    componentDidMount(){
+        const token = window.localStorage.getItem('token')
+        if(token === null){
+            this.props.goToLogin()
+        }
+    }
+
     handleInputChange = (e) => {
         const { name, value } = e.target;
         this.setState({ form: { ...this.state.form, [name]: value} });
@@ -67,6 +77,8 @@ class CreateTripPage extends React.Component{
     capturaData =(e) => {
         e.preventDefault();
         console.log(this.state.form)
+        this.props.sendNewTrip(this.state.form)
+
     }
 
     render(){
@@ -123,4 +135,11 @@ class CreateTripPage extends React.Component{
     }
 }
 
-export default CreateTripPage;
+const mapDispatchToProps = dispatch => {
+    return{
+        goToLogin: ()=> dispatch(push(routes.loginPage)),
+        sendNewTrip: (newTripData)=> dispatch(addNewTrip(newTripData))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CreateTripPage);
