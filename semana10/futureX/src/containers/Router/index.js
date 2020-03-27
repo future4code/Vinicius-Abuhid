@@ -12,7 +12,7 @@ import SubscriptionDone from '../FormPage/subscriptionDone'
 import NewTripAdded from '../CreateTripPage/newTripAdded'
 
 export const routes = {
-  root: "/home",
+  root: "/",
   listForUsers: '/users/trips/',
   formPage: '/users/trips/application',
   subscriptionDone: '/users/trip/application/done',
