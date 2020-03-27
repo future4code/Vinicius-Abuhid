@@ -3,7 +3,56 @@ import {connect} from 'react-redux'
 import {push} from 'connected-react-router'
 import {routes} from '../Router/index'
 import {selectACandidate} from '../../actions/index'
+import styled from 'styled-components'
+import Logo from '../../assets/Logo2.PNG'
+import Button from '@material-ui/core/Button'
+import CandidateCard from '../../components/candidateCard'
 
+const PageWrapper = styled.div`
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+`
+const HeaderWrapper = styled.div`
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px
+`
+const LogoWrapper = styled.img`
+    width: 120px;
+    height: 50px
+`
+const MainWrapper = styled.div`
+    background-color: #A9A9A9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 100px;
+`
+const TitleWrapper = styled.h2`
+    text-align: center;
+`
+const FooterWraper = styled.footer`
+    background-color: #ff7828;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    font-weight: bold;
+`
+const BackButtonWrapper = styled.p`
+    &:hover {
+        color: #ff7828
+    }
+`
 class TripsDetailsPage extends React.Component{
     constructor(props){
         super(props)
@@ -24,6 +73,11 @@ class TripsDetailsPage extends React.Component{
         this.props.selectACandidate(candidateId, tripId)
     }
 
+    logOut = () => {
+        localStorage.clear()
+        this.props.goToLogin()
+    }
+
     render(){
         let tripDetailsScreen = "";
 
@@ -31,44 +85,66 @@ class TripsDetailsPage extends React.Component{
             tripDetailsScreen = 
                 <div>
                     <p>Por favor selecione uma viagem</p>
-                    <p onClick={this.selectATrip}>
+                    <BackButtonWrapper onClick={this.selectATrip}>
                     <u>lista de viagens</u>
-                    </p>
+                    </BackButtonWrapper>
                 </div>
         }
         else{
             tripDetailsScreen = 
                 <div>
-                    <h3>{this.props.tripDetails.name}</h3>
-                    <h4>inscrições</h4>
-                    <ul>
+                    <TitleWrapper>{this.props.tripDetails.name}</TitleWrapper>
+                    <p>{this.props.tripDetails.description}</p>
+                    <p>Planeta: {this.props.tripDetails.planet}</p>
+                    <p>Data: {this.props.tripDetails.date}</p>
+                    <p>Duração em dias terráqueos: {this.props.tripDetails.durationInDays}</p>
+                    <h3>Inscrições</h3>
                         {this.props.tripDetails.candidates.map((candidate, index)=>{
-                             return     <li key={index}>
-                                            {candidate.name}
-                                            <button 
-                                            onClick=
-                                            {()=> this.getTripandCandidateId(candidate.id,
-                                                this.props.tripDetails.id)}
-                                            >
-                                            Selecionar candidato
-                                            </button>
-                                        </li>
+                             return     <CandidateCard 
+                                        candidate={candidate}
+                                        button= {<Button
+                                        onClick ={()=> this.getTripandCandidateId(candidate.id,
+                                            this.props.tripDetails.id)}>
+                                        Selecionar Candidato
+                                        </Button>}
+                                        />
+                                        // <li key={index}>
+                                        //     {candidate.name}
+                                        //     <Button 
+                                        //     onClick=
+                                        //     {()=> this.getTripandCandidateId(candidate.id,
+                                        //         this.props.tripDetails.id)}
+                                        //     >
+                                        //     Selecionar candidato
+                                        //     </Button>
+                                        // </li>
                         })}
-                    </ul>
-                    <h4>candidatos aprovados</h4>
-                    <ul>
+                    <h3>Candidatos aprovados</h3>
                         {this.props.tripDetails.approved.map((candidate, index)=>{
-                             return     <li key={index}>
-                                            {candidate.name}
-                                        </li>
+                             return     <CandidateCard 
+                                        candidate={candidate}
+                                        />
+                                        // <li key={index}>
+                                        //     {candidate.name}
+                                        // </li>
                         })}
-                    </ul>
                 </div>
         }
         return(
-            <div>
-                {tripDetailsScreen}
-            </div>
+            <PageWrapper>
+                <HeaderWrapper>
+                <LogoWrapper src={Logo}/>
+                    <Button
+                    onClick={this.logOut}
+                    >
+                    Logout
+                    </Button>
+                </HeaderWrapper>
+                <MainWrapper>
+                    {tripDetailsScreen}
+                </MainWrapper>
+                <FooterWraper>Feito por Vinícius Abuhid</FooterWraper>
+            </PageWrapper>
         )
     }
 }

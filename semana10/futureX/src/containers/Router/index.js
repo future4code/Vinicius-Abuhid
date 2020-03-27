@@ -12,7 +12,7 @@ import SubscriptionDone from '../FormPage/subscriptionDone'
 import NewTripAdded from '../CreateTripPage/newTripAdded'
 
 export const routes = {
-  root: "/",
+  root: "/home",
   listForUsers: '/users/trips/',
   formPage: '/users/trips/application',
   subscriptionDone: '/users/trip/application/done',
@@ -24,7 +24,6 @@ export const routes = {
 };
 
 function Router(props) {
-  console.log('ta chamando')
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
@@ -43,11 +42,3 @@ function Router(props) {
 }
 
 export default Router;
-
-{/* <h3>{this.props.tripDetails.name}</h3>
-                    <h4>candidatos</h4>
-                    <ul>
-                        {/* {this.props.tripDetails.candidates.map((candidate, index)=> {
-                            return  <li key={index}>{candidate.name}</li>
-                        })} */}
-                    // </ul> */}

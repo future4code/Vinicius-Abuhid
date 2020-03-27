@@ -1,8 +1,68 @@
 import React from 'react'
 import {getTheTripList, sendSubscriptionData} from '../../actions/index'
 import {connect} from 'react-redux'
+import styled from 'styled-components'
+import Button from '@material-ui/core/Button'
+import Logo from '../../assets/Logo2.PNG'
+import {push} from 'connected-react-router'
+import {routes} from '../Router/index'
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
 
-const country_list = ["","Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla",
+const PageWrapper = styled.div`
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+`
+const HeaderWrapper = styled.div`
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px
+`
+const LogoWrapper = styled.img`
+    width: 120px;
+    height: 50px
+`
+const MainWrapper = styled.div`
+    background-color: #A9A9A9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 100px;
+`
+const FormWrapper = styled.form`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px
+`
+
+const FieldWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px
+`
+const FooterWraper = styled.footer`
+    background-color: #ff7828;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    font-weight: bold;
+`
+
+const country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla",
 "Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan",
 "Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda",
 "Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso",
@@ -47,7 +107,6 @@ const candidateInfo = [
         name: 'applicationText',
         type: 'text', 
         required: true,
-        placeholder: 'Por quê você se considera um bom candidato?',
         pattenr: '.{30,}'
     },
     {
@@ -97,15 +156,32 @@ class FormPage extends React.Component{
         
     }
 
+    goToLogin = () => {
+        this.props.goToLoginPage()
+    }
+
+    goHome = () => {
+        this.props.goToHomePage()
+    }
+
     render(){
         return(
-            <div>
-                <form onSubmit={this.sendForm}>
-                    <h2>Formulário de inscrição</h2>
+            <PageWrapper>
+                <HeaderWrapper>
+                    <LogoWrapper
+                    onClick={this.goHome}
+                    src={Logo}/>
+                    <Button
+                    onClick={this.goToLogin}
+                    >Login</Button>
+                </HeaderWrapper>
+                <MainWrapper>
+                <h2>Formulário de inscrição</h2>
+                <FormWrapper onSubmit={this.sendForm}>
                     {
                         candidateInfo.map((field, index) => {
                             if(field.type !== 'select'){
-                                return  <div key={index}>
+                                return  <FieldWrapper key={index}>
                                             <label>{field.label}</label>
                                             <input 
                                             name={field.name}
@@ -114,13 +190,12 @@ class FormPage extends React.Component{
                                             pattern={field.pattenr}
                                             onChange={this.handleInputChange}
                                             min={field.min}
-                                            placeholder={field.placeholder}
                                             value={this.state.form[field.name] || ""}
                                             />
-                                        </div>
+                                        </FieldWrapper>
                             }
                             else{
-                                return <div key={index}>
+                                return <FieldWrapper key={index}>
                                             <label>{field.label}</label>
                                             <select 
                                             name={field.name} 
@@ -131,11 +206,11 @@ class FormPage extends React.Component{
                                             return <option key={index} >{country}</option>
                                             })}
                                             </select>
-                                        </div>
+                                        </FieldWrapper>
                             }
                         })
                     }
-                    <div>
+                    <FieldWrapper>
                         <label>Selecione uma viagem</label>
                         <select 
                         onChange={this.handleTripChange}
@@ -150,10 +225,14 @@ class FormPage extends React.Component{
                                     </option>
                             })}
                         </select>
-                    </div>
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
+                    </FieldWrapper>
+                    <Button 
+                    variant="contained"
+                    type="submit">Enviar</Button>
+                </FormWrapper>
+                </MainWrapper>
+                <FooterWraper>Feito por Vinícius Abuhid</FooterWraper>
+            </PageWrapper>
         )
     }
 }
@@ -167,7 +246,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>{
     return{
         getTrips: ()=> dispatch(getTheTripList()),
-        sendSubscription: (userInfo, tripId)=> dispatch(sendSubscriptionData(userInfo,tripId))
+        sendSubscription: (userInfo, tripId)=> dispatch(sendSubscriptionData(userInfo,tripId)),
+        goToLoginPage: ()=> dispatch(push(routes.loginPage)),
+        goToHomePage: ()=> dispatch(push(routes.root))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FormPage)

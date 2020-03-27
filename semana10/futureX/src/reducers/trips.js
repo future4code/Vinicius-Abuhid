@@ -6,7 +6,6 @@ const initialState = {
 const trips = (state = initialState, action) => {
   switch(action.type){
   case 'GET_ TRIPS':
-    console.log(action.payload.tripList)
     return {
       ...state, tripList: action.payload.tripList
     }

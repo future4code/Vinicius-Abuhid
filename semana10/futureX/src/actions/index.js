@@ -56,7 +56,6 @@ export const getTheTripList = () => async (dispatch) => {
     const result = await axios.get(
         `${baseURL}/trips`
         )
-    console.log(result.data.trips)
     dispatch (
         tripListAction(result.data.trips)
     )
@@ -122,7 +121,6 @@ export const setLogin = (email, password) => async(dispatch) => {
     try{
         const result = await axios.post(`${baseURL}/login`, body,
         {headers :{'Content-Type': 'application/json'}})
-        console.log(result.data.token)
         const token = result.data.token
         window.localStorage.setItem('token', token)
         dispatch(push(routes.listForAdm))
