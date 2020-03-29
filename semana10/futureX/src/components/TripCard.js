@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Logo from '../assets/Logo.PNG'
 
 const CardWrapper = styled.div`
     display: flex;
@@ -10,10 +11,10 @@ const CardWrapper = styled.div`
 `
 
 const ImgWrapper = styled.img`
-    border: 1px solid black;
+    border-right: 1px solid #ff7828;
     margin-right: 10px;
-    width: 340px;
-    height: 240px;
+    width: 300px;
+    height: 150px;
 `
 const TitleWrapper = styled.h3`
     color: #ff7828;
@@ -23,6 +24,7 @@ const TextAndActionsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 5px
 `
 const ActionWrapper = styled.div`
     width: 100%;
@@ -35,7 +37,9 @@ const TripCard = (props) => {
     return(
         <div>
             <CardWrapper>
-            <ImgWrapper src={'https://wallpapersite.com/images/pages/pic_w/7216.jpg'}/>
+            <ImgWrapper 
+            src={Logo}
+            alt='Foto da viagem'/>
             <TextAndActionsWrapper>
                 <div>
                 <TitleWrapper>{props.trip.name}</TitleWrapper>

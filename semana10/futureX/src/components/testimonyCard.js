@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const CardWrapper = styled.div`
     display: flex;
     align-items: center;
-    margin: 30px;
+    margin: 50px;
     background-color: white;
     padding: 5px
 `
@@ -30,7 +30,7 @@ const TestimonyCard = (props) => {
     return(
         <div>
             <CardWrapper>
-            <ImgWrapper src={props.imgProfile}/>
+            <ImgWrapper src={props.imgProfile} alt='Foto de perfil'/>
             <TextWrapper>
                 <TitleWrapper>{props.name}</TitleWrapper>
                 <p>{props.description}</p>

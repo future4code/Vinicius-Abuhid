@@ -15,6 +15,7 @@ const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    position: relative
 `
 const HeaderWrapper = styled.div`
     width: 100%;
@@ -29,22 +30,26 @@ const LogoWrapper = styled.img`
     height: 50px
 `
 const MainWrapper = styled.div`
-    background-color: #A9A9A9;
+    background-image: url("https://images.wallpaperscraft.com/image/milky_way_starry_sky_galaxy_119519_1920x1080.jpg");
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding-top: 40px;
     padding-bottom: 100px;
+    height: 100%
 `
 const FormWrapper = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 15px
+    background-color: white;
+    padding: 50px
 `
-
+const TitleWrapper = styled.h2`
+    color: #ff7828;
+    margin-bottom: 40px;
+`
 const FieldWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -60,9 +65,13 @@ const FooterWraper = styled.footer`
     padding: 15px;
     color: white;
     font-weight: bold;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 `
 
-let date = new Date
+let date = new Date()
 let day = date.getDate()
 let month = date.getMonth()+1
 const year = date.getFullYear() 
@@ -76,11 +85,11 @@ date = year+'-'+month+'-'+day
 
 const tripInfo = [
     {
-        label: 'Viagem',
+        label: 'Nome do pacote',
         name: 'name',
         type: 'text', 
         required: true,
-        pattenr: '[a-zA-Z ]{5,}'
+        pattern: '[a-zA-Z ]{5,}'
     },
     {
         label: 'Planeta',
@@ -100,7 +109,7 @@ const tripInfo = [
         name: 'description',
         type: 'text', 
         required: true,
-        pattenr: '.{30,}'
+        pattern: '.{30,}'
     },
     {
         label: 'Tempo da viagem em dias',
@@ -129,14 +138,16 @@ class CreateTripPage extends React.Component{
     handleInputChange = (e) => {
         const { name, value } = e.target;
         this.setState({ form: { ...this.state.form, [name]: value} });
-        console.log(this.state.form)
       };
     
     capturaData =(e) => {
         e.preventDefault();
-        console.log(this.state.form)
         this.props.sendNewTrip(this.state.form)
 
+    }
+
+    goHome = () => {
+        this.props.goToHomePage()
     }
 
     logOut = () => {
@@ -148,27 +159,30 @@ class CreateTripPage extends React.Component{
         return(
             <PageWrapper>
                 <HeaderWrapper>
-                    <LogoWrapper src={Logo}/>
+                    <LogoWrapper 
+                    src={Logo}
+                    onClick={this.goHome} 
+                    alt='Logo'/>
                     <Button
                     onClick={this.logOut}>
                     Logout
                     </Button>
                 </HeaderWrapper>
                 <MainWrapper>
-                <h2>Criar nova viagem</h2>
                 <FormWrapper onSubmit={this.capturaData}>
+                    <TitleWrapper>Criar nova viagem</TitleWrapper>
                     {
                         tripInfo.map((field, index) => {
                             if(field.type !== 'select'){
                                 return  <FieldWrapper key={index}>
                                             <label>{field.label}</label>
-                                            <input 
+                                            <input
                                             name={field.name}
                                             type={field.type}
                                             required={field.required}
-                                            pattern={field.pattenr}
                                             onChange={this.handleInputChange}
-                                            min={field.min}
+                                            pattern= {field.pattern}
+                                            min= {field.min}
                                             value={this.state.form[field.name] || ""}
                                             />
                                         </FieldWrapper>
@@ -180,7 +194,6 @@ class CreateTripPage extends React.Component{
                                             name={field.name}
                                             type={field.type}
                                             required={field.required}
-                                            // pattern={field.pattenr}
                                             onChange={this.handleInputChange}
                                             value={this.state.form[field.name] || ""}
                                             >
@@ -213,7 +226,8 @@ class CreateTripPage extends React.Component{
 const mapDispatchToProps = dispatch => {
     return{
         goToLogin: ()=> dispatch(push(routes.loginPage)),
-        sendNewTrip: (newTripData)=> dispatch(addNewTrip(newTripData))
+        sendNewTrip: (newTripData)=> dispatch(addNewTrip(newTripData)),
+        goToHomePage: ()=> dispatch(push(routes.root))
     }
 }
 

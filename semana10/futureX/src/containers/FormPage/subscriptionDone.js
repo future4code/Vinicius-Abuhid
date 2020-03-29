@@ -12,6 +12,7 @@ const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    position: relative
 `
 const HeaderWrapper = styled.div`
     width: 100%;
@@ -26,14 +27,24 @@ const LogoWrapper = styled.img`
     height: 50px
 `
 const MainWrapper = styled.div`
-    background-color: #A9A9A9;
+    background-image: url("https://images.wallpaperscraft.com/image/milky_way_starry_sky_galaxy_119519_1920x1080.jpg");
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding-top: 40px;
     padding-bottom: 100px;
+    height: 100%
 `
+const MessageWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    background-color: white;
+    padding: 50px
+`
+
 const FooterWraper = styled.footer`
     background-color: #ff7828;
     display: flex;
@@ -42,6 +53,10 @@ const FooterWraper = styled.footer`
     padding: 15px;
     color: white;
     font-weight: bold;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 `
 const BackButtonWrapper = styled.p`
     &:hover {
@@ -49,9 +64,6 @@ const BackButtonWrapper = styled.p`
     }
 `
 class SubscriptionDone extends React.Component{
-    constructor(props){
-        super(props)
-    }
     
     goToTripList = () => {
         this.props.backToTripList()
@@ -71,17 +83,20 @@ class SubscriptionDone extends React.Component{
                 <HeaderWrapper>
                     <LogoWrapper
                     onClick={this.goHome}
-                    src={Logo}/>
+                    src={Logo}
+                    alt='Logo'/>
                     <Button
                     onClick={this.goToLogin}
                     >Login</Button>
                 </HeaderWrapper>
                 <MainWrapper>
-                <p>Parabéns! A sua inscrição foi efetivada com sucesso!</p>
-                <BackButtonWrapper
-                onClick={this.goToTripList}>
-                <u>Voltar para a lista de viagens</u>
-                </BackButtonWrapper>
+                <MessageWrapper>
+                    <p>Parabéns! A sua inscrição foi efetivada com sucesso!</p>
+                    <BackButtonWrapper
+                    onClick={this.goToTripList}>
+                    <u>Voltar para a lista de viagens</u>
+                    </BackButtonWrapper>
+                </MessageWrapper>
                 </MainWrapper>
                 <FooterWraper>Feito por Vinícius Abuhid</FooterWraper>
             </PageWrapper>    

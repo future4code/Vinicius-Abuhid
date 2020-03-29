@@ -38,13 +38,20 @@ const MainWrapper = styled.div`
     background-color: #A9A9A9;
     display: flex;
     flex-direction: column;
-    padding-bottom: 15px;
-    background-image: url("https://essium.co/wp-content/uploads/2019/07/deep-space-background-with-nebulae.jpg");
-    background-repeat: no-repeat;
+    padding-bottom: 50px;
+    background-image: url("https://images.wallpaperscraft.com/image/milky_way_starry_sky_galaxy_119519_1920x1080.jpg");
 `
+const ClickActionWrapper = styled.div`
+    align-self: center;
+    background-color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center 
+`
+
 const ButtonWrapper = styled(Button)`
     width: 50%;
-    align-self: center;
     margin-bottom: 10px;
 `
 const FooterWraper = styled.footer`
@@ -80,11 +87,9 @@ class HomePage extends Component {
 
   goToList = ()=> {
     this.props.goToTripsList()
-    console.log('teste')
   }
 
   goToLogin = () => {
-    console.log('essa feeera')
     this.props.goToLoginPage()
   }
 
@@ -92,7 +97,7 @@ class HomePage extends Component {
     return (
       <PageWrapper>
         <HeaderWrapper>
-          <LogoWrapper src={Logo}/>
+          <LogoWrapper src={Logo} alt='Logo'/>
           <Button
           onClick={this.goToLogin}
           >Login
@@ -112,11 +117,14 @@ class HomePage extends Component {
                     description={card.experience}
                     />
           })}
+        <ClickActionWrapper>
+          <p>Venha fazer parte do nosso time de tripulantes</p>
           <ButtonWrapper
-          variant="contained" 
-          onClick={this.goToList} >
-          Conheça nossos pacotes e venha se inscrever para ser parte do nosso time de trpulates!
-        </ButtonWrapper>  
+            variant="contained" 
+            onClick={this.goToList} >
+            Clique aqui
+          </ButtonWrapper>
+        </ClickActionWrapper>  
         </MainWrapper>
         <FooterWraper>Feito por Vinícius Abuhid</FooterWraper>
       </PageWrapper>
@@ -126,8 +134,9 @@ class HomePage extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    goToTripsList: () => dispatch(push(routes.listForUsers)),
-    goToLoginPage: () => dispatch(push(routes.loginPage))
+    goToLoginPage: () => dispatch(push(routes.loginPage)),
+    goToTripsList: () => dispatch(push(routes.listForUsers))
+    
   };
 };
 export default connect(null, mapDispatchToProps)(HomePage);

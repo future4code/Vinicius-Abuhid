@@ -1,15 +1,8 @@
 import React from "react";
-import { Provider, connect } from "react-redux";
-import thunk from "redux-thunk";
-import { MuiThemeProvider, CssBaseline, Toolbar } from "@material-ui/core";
-import theme from "../../style/theme";
-import Router from "../Router";
-import { createBrowserHistory } from "history";
-import { createStore, applyMiddleware, compose } from "redux";
-import { generateReducers } from "../../reducers";
-import { routerMiddleware, push } from "connected-react-router";
+import { connect } from "react-redux";
+import { push } from "connected-react-router";
 import { routes } from "../Router";
-import {getTheTripList} from '../../actions/index'
+import { getTheTripList } from '../../actions/index'
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button'
 import Input from '@material-ui/core/Input';
@@ -41,18 +34,20 @@ const ToolbarWrapper = styled.div`
     width: 100%;
     background-color: #ff7828;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 50px
+    padding: 0 50px 50px 50px
 `
 const SearchWrapper = styled.div`
     display: flex;
     justify-content: space-around;
     align-items:center;
     width: 30%;
+    margin-top: 20px
 `
 const MainWrapper = styled.div`
-    background-color: #A9A9A9;
+    background-image: url("https://images.wallpaperscraft.com/image/milky_way_starry_sky_galaxy_119519_1920x1080.jpg");
     display: flex;
     flex-direction: column;
     padding-bottom: 15px
@@ -75,10 +70,19 @@ const ButtonWrapper = styled(Button)`
 class ListTripsPageForUsers extends React.Component{
     constructor(props){
         super(props)
+        this.state = {
+            search: ""
+        }
     }
 
     componentDidMount(){
         this.props.getTrips()
+    }
+    
+    searchTrip = (e) => {
+        this.setState({
+            search: e.target.value
+        })
     }
 
     goToForm = () => {
@@ -94,25 +98,38 @@ class ListTripsPageForUsers extends React.Component{
     }
 
     render(){
+        let filteredTripList= this.props.allTrips
+        if(this.state.search !== ""){
+            const lowerCaseSearch = this.state.search.toLowerCase()
+            const search = filteredTripList.filter((trip, index)=> {
+            return trip.name.toLowerCase().includes(lowerCaseSearch)
+            })
+            filteredTripList = search
+        }
         return(
             <PageWrapper>
                 <HeaderWrapper>
                     <LogoWrapper
                     onClick={this.goHome}
-                    src={Logo}/>
+                    src={Logo}
+                    alt='Logo'/>
                     <Button
                     onClick={this.goToLogin}
                     >Login</Button>
                 </HeaderWrapper>
                 <ToolbarWrapper>
+                    <h2>Nossos pacotes</h2>
                     <SearchWrapper>
                         <label>Buscar viagem:</label>
-                        <Input type='text'/>
+                        <input 
+                        onChange={this.searchTrip}
+                        value={this.state.search}
+                        type='text'/>
                         <Search/>
                     </SearchWrapper>
                 </ToolbarWrapper>
                 <MainWrapper>
-                {this.props.allTrips.map((trip, index)=>{
+                {filteredTripList.map((trip, index)=>{
                     return  <TripCard 
                             trip={trip}
                             buttonText='Candidatar'

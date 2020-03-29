@@ -8,6 +8,7 @@ import {push} from 'connected-react-router'
 import {routes} from '../Router/index'
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const PageWrapper = styled.div`
     width: 100%;
@@ -15,6 +16,7 @@ const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    position: relative
 `
 const HeaderWrapper = styled.div`
     width: 100%;
@@ -29,22 +31,26 @@ const LogoWrapper = styled.img`
     height: 50px
 `
 const MainWrapper = styled.div`
-    background-color: #A9A9A9;
+    background-image: url("https://images.wallpaperscraft.com/image/milky_way_starry_sky_galaxy_119519_1920x1080.jpg");
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding-top: 40px;
     padding-bottom: 100px;
+    height: 100%
 `
 const FormWrapper = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 15px
+    background-color: white;
+    padding: 50px
 `
-
+const TitleWrapper = styled.h2`
+    color: #ff7828;
+    margin-bottom: 40px;
+`
 const FieldWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -60,9 +66,13 @@ const FooterWraper = styled.footer`
     padding: 15px;
     color: white;
     font-weight: bold;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 `
 
-const country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla",
+const country_list = ["Selecionar País", "Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla",
 "Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan",
 "Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda",
 "Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso",
@@ -93,7 +103,7 @@ const candidateInfo = [
         name: 'name',
         type: 'text', 
         required: true,
-        pattenr: '[a-zA-Z ]{3,}'
+        pattern: '[a-zA-Z ]{3,}'
     },
     {
         label: 'Idade',
@@ -107,14 +117,14 @@ const candidateInfo = [
         name: 'applicationText',
         type: 'text', 
         required: true,
-        pattenr: '.{30,}'
+        pattern: '.{30,}'
     },
     {
         label: 'Profissão',
         name: 'profession',
         type: 'text', 
         required: true,
-        pattenr: '[a-zA-Z ]{10,}'
+        pattern: '[a-zA-Z ]{10,}'
     },
     {
         label: 'País',
@@ -138,22 +148,20 @@ class FormPage extends React.Component{
     }
 
     handleInputChange = (e) => {
+        console.log(e.target.value)
         const { name, value } = e.target;
         this.setState({ form: { ...this.state.form, [name]: value} });
     };
     
     handleTripChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             tripId: e.target.value
         })
-        console.log(this.state.tripId)
     }
 
     sendForm =(e) => {
         e.preventDefault();
         this.props.sendSubscription(this.state.form, this.state.tripId)
-        
     }
 
     goToLogin = () => {
@@ -170,26 +178,27 @@ class FormPage extends React.Component{
                 <HeaderWrapper>
                     <LogoWrapper
                     onClick={this.goHome}
-                    src={Logo}/>
+                    src={Logo}
+                    alt='Logo'/>
                     <Button
                     onClick={this.goToLogin}
                     >Login</Button>
                 </HeaderWrapper>
                 <MainWrapper>
-                <h2>Formulário de inscrição</h2>
                 <FormWrapper onSubmit={this.sendForm}>
+                    <TitleWrapper>Formulário de inscrição</TitleWrapper>
                     {
                         candidateInfo.map((field, index) => {
                             if(field.type !== 'select'){
                                 return  <FieldWrapper key={index}>
                                             <label>{field.label}</label>
-                                            <input 
+                                            <input
                                             name={field.name}
                                             type={field.type}
                                             required={field.required}
-                                            pattern={field.pattenr}
                                             onChange={this.handleInputChange}
-                                            min={field.min}
+                                            pattern= {field.pattern}
+                                            min= {field.min}
                                             value={this.state.form[field.name] || ""}
                                             />
                                         </FieldWrapper>
@@ -197,7 +206,7 @@ class FormPage extends React.Component{
                             else{
                                 return <FieldWrapper key={index}>
                                             <label>{field.label}</label>
-                                            <select 
+                                            <select
                                             name={field.name} 
                                             required={field.required}
                                             onChange={this.handleInputChange}
@@ -216,6 +225,7 @@ class FormPage extends React.Component{
                         onChange={this.handleTripChange}
                         value={this.state.tripId}
                         >
+                        <option>Selecionar Viagem</option>
                         {this.props.allTrips.map((trip, index)=> {
                             return  <option
                                     value={trip.id}

@@ -34,21 +34,24 @@ const ToolbarWrapper = styled.div`
     width: 100%;
     background-color: #ff7828;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 50px
+    padding: 0 50px 50px 50px
 `
 const SearchWrapper = styled.div`
     display: flex;
     justify-content: space-around;
     align-items:center;
     width: 30%;
+    margin-top: 20px
 `
+
 const MainWrapper = styled.div`
-    background-color: #A9A9A9;
+    background-image: url("https://images.wallpaperscraft.com/image/milky_way_starry_sky_galaxy_119519_1920x1080.jpg");
     display: flex;
     flex-direction: column;
-    padding-bottom: 15px
+    padding-bottom: 15px;
 `
 const FooterWraper = styled.footer`
     background-color: #ff7828;
@@ -68,6 +71,9 @@ const ButtonWrapper = styled(Button)`
 class ListTripsPageForAdm extends React.Component{
     constructor(props){
         super(props)
+        this.state = {
+            search: ""
+        }
     }
 
     componentDidMount(){
@@ -93,6 +99,12 @@ class ListTripsPageForAdm extends React.Component{
         }
     }
 
+    searchTrip = (e) => {
+        this.setState({
+            search: e.target.value
+        })
+    }
+
     goHome = () => {
         this.props.goToHomePage()
     }
@@ -103,25 +115,38 @@ class ListTripsPageForAdm extends React.Component{
     }
 
     render(){
+        let filteredTripList= this.props.allTrips
+        if(this.state.search !== ""){
+            const lowerCaseSearch = this.state.search.toLowerCase()
+            const search = filteredTripList.filter((trip, index)=> {
+            return trip.name.toLowerCase().includes(lowerCaseSearch)
+            })
+            filteredTripList = search
+        }
         return(
             <PageWrapper>
                  <HeaderWrapper>
                     <LogoWrapper
                     onClick={this.goHome}
-                    src={Logo}/>
+                    src={Logo}
+                    alt='Logo'/>
                     <Button
                     onClick={this.logOut}
                     >Logout</Button>
                 </HeaderWrapper>
                 <ToolbarWrapper>
+                    <h2>Nossos pacotes</h2>
                     <SearchWrapper>
                         <label>Buscar viagem:</label>
-                        <Input type='text'/>
+                        <input 
+                        onChange={this.searchTrip}
+                        value={this.state.search}
+                        type='text'/>
                         <Search/>
                     </SearchWrapper>
                 </ToolbarWrapper>
                 <MainWrapper>
-                    {this.props.allTrips.map((trip, index)=> {
+                    {filteredTripList.map((trip, index)=> {
                         return  <TripCard 
                                 trip={trip}
                                 buttonText='Ver mais Detalhes'

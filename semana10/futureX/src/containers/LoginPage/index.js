@@ -28,7 +28,7 @@ const LogoWrapper = styled.img`
     height: 50px
 `
 const MainWrapper = styled.div`
-    background-color: #A9A9A9;
+background-image: url("https://images.wallpaperscraft.com/image/milky_way_starry_sky_galaxy_119519_1920x1080.jpg");;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,12 @@ const FormWrapper = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 15px
+    background-color: white;
+    padding: 50px
+`
+const TitleWrapper = styled.h2`
+    color: #ff7828;
+    margin-bottom: 40px;
 `
 const FieldWrapper = styled.div`
     display: flex;
@@ -84,7 +89,6 @@ class LoginPage extends React.Component{
     }
 
     goToList= () => {
-        console.log('yoyoyo')
         this.props.goToList()
     }
 
@@ -96,27 +100,26 @@ class LoginPage extends React.Component{
     handleInputChange = (e) => {
         const { name, value } = e.target;
         this.setState({ data: { ...this.state.data, [name]: value} });
-        console.log(this.state.data)
     }
 
     goHome = () => {
         this.props.goToHomePage()
     }
-    
+
     render(){
         return(
             <PageWrapper>
                 <HeaderWrapper>
                     <LogoWrapper
                     onClick={this.goHome}
-                    src={Logo}/>
-                    <Button>Login</Button>
+                    src={Logo}
+                    alt='Logo'/>
                 </HeaderWrapper>
                 <MainWrapper>
-                <h2>Bem-vindo</h2>
                     <FormWrapper onSubmit={this.handleSubmit}>
-                        {loginInputs.map((field)=>{
-                            return  <FieldWrapper>
+                    <TitleWrapper>Bem-vindo</TitleWrapper>
+                        {loginInputs.map((field, index)=>{
+                            return  <FieldWrapper key={index}>
                                         <label>{field.label}</label>
                                         <Input
                                         type={field.type}
