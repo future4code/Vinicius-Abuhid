@@ -6,7 +6,7 @@ import { push } from "connected-react-router";
 import styled from 'styled-components'
 import { routes } from '../containers/Router'
 
-const Logo = styled.img`
+export const Logo = styled.img`
 height: 10vh;
 `
 const DivWrapper = styled.div`
