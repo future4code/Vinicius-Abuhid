@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1586460446416" clover="3.2.0">
+  <project timestamp="1586460446416" name="All files">
+    <metrics statements="46" coveredstatements="28" conditionals="6" coveredconditionals="5" methods="18" coveredmethods="9" elements="70" coveredelements="42" complexity="0" loc="46" ncloc="46" packages="3" files="4" classes="4"/>
+    <package name="actions">
+      <metrics statements="15" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
+      <file name="actions.js" path="C:\Users\Jeanne\OneDrive\Vinícius\Curso Future4\Vinicius-Abuhid\semana12\src\actions\actions.js">
+        <metrics statements="15" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="components">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="addNewTaskBar.js" path="C:\Users\Jeanne\OneDrive\Vinícius\Curso Future4\Vinicius-Abuhid\semana12\src\components\addNewTaskBar.js">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+      </file>
+      <file name="taskCard.js" path="C:\Users\Jeanne\OneDrive\Vinícius\Curso Future4\Vinicius-Abuhid\semana12\src\components\taskCard.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="containers.Planner">
+      <metrics statements="23" coveredstatements="15" conditionals="6" coveredconditionals="5" methods="11" coveredmethods="6"/>
+      <file name="index.js" path="C:\Users\Jeanne\OneDrive\Vinícius\Curso Future4\Vinicius-Abuhid\semana12\src\containers\Planner\index.js">
+        <metrics statements="23" coveredstatements="15" conditionals="6" coveredconditionals="5" methods="11" coveredmethods="6"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="67" count="14" type="stmt"/>
+        <line num="71" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
