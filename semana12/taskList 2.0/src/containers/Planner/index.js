@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import AddNewTaskBar from '../../components/addNewTaskBar'
 import styled from 'styled-components'
 import {getTaskList, addNewTask} from '../../actions/actions'
-import syled from 'styled-components'
 
 const Table = styled.div`
   display: grid;

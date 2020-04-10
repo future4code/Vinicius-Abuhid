@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'https://us-central1-missao-newton.cloudfunctions.net/generic/planner-sagan-vinicius'
+export const baseURL = 'https://us-central1-missao-newton.cloudfunctions.net/generic/planner-sagan-vinicius'
 
 export const getList = (taskList) => {
     return{
