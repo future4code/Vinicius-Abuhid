@@ -41,5 +41,4 @@ describe('testing planner functions', ()=>{
         const mockedGetUserInfo = component.instance().getUserInfo(mockedUserInfo)
         expect(component.state().userInfo).toEqual({mockedName: 'mockedValue'})
     })
-
 })

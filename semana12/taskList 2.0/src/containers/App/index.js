@@ -20,6 +20,9 @@ export const App = () => (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
+      <head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"/>
+      </head>
       <Planner />
     </MuiThemeProvider>
   </Provider>

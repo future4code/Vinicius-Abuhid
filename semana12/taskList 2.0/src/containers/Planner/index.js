@@ -3,27 +3,40 @@ import { connect } from "react-redux";
 import AddNewTaskBar from '../../components/addNewTaskBar'
 import styled from 'styled-components'
 import {getTaskList, addNewTask} from '../../actions/actions'
+import {Paper} from '@material-ui/core'
 
 const Table = styled.div`
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  width: 90%;
-  align-self: center;
-  padding: 10px
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    align-self: center;
+    padding: 10px;
+    border-left: 2px ridge grey;
+    border-right: 2px ridge grey;
+    height: 85vh;
 `
 
 const DayCard = styled.div`
-  border: solid black 1px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5px
 `
-const ContentWrapper = styled.div`
+
+const ContentWrapper = styled(Paper)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  width: 70%;
+  height: 100vh;
+  align-self: center;
+  margin: 0 auto
+`
+const PageWrapper = styled.div`
+  background: url(https://atualissimotreinamentos.com.br/wp-content/uploads/2018/08/business-wallpaper-hd.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
 `
 
 export class Planner extends React.Component {
@@ -47,14 +60,18 @@ export class Planner extends React.Component {
 
   submitTask = (e) =>{
     e.preventDefault();
-    this.props.sendNewTask(this.state.userInfo) 
+    this.props.sendNewTask(this.state.userInfo)
+    this.setState({
+      userInfo: {}
+    })
   }
 
   render() {
   const weekDays = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira',
   'Sábado', 'Domingo']
     return(
-      <ContentWrapper>
+      <PageWrapper>
+      <ContentWrapper elevation={3}>
         <AddNewTaskBar
         saveInfo={this.getUserInfo}
         taskValue={this.state.userInfo.text || ''}
@@ -64,7 +81,7 @@ export class Planner extends React.Component {
         <Table>
           {weekDays.map( (day, index) => {
           return  <DayCard key={index}>
-                    <h2>{day}</h2>
+                    <h3>{day}</h3>
                     <ul>
                     {this.props.taskList.map(task =>{
                     if(task.day === day){
@@ -75,6 +92,7 @@ export class Planner extends React.Component {
           }
         </Table>
       </ContentWrapper>
+      </PageWrapper>
     );
   }
 }
