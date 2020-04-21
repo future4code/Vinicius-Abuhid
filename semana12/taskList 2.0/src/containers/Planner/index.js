@@ -47,8 +47,31 @@ export class Planner extends React.Component {
     }
   }
 
+  testData = (data) => {
+  let currentDate = new Date();
+  let limitYear  = currentDate.getFullYear() - 18
+  let limitMonth  = currentDate.getMonth()
+  let limitDay  = currentDate.getDate()
+  let limitDate = new Date(limitYear, limitMonth, limitDay)
+  let limitCode  = limitDate.getTime()
+
+  let customerBirth = data.split('/')
+  let customerBirthDate = 
+  new Date(Number(customerBirth[0]), Number(customerBirth[1]) - 1, Number(customerBirth[2]),)
+  console.log(customerBirthDate)
+  let checkLimit = customerBirthDate.getTime()
+
+  if(checkLimit <= limitCode){
+      console.log('booa')
+  }
+  else{
+      console.log('Não foi possível criar uma nova conta, pois o requerente é menor de idade.')
+  }
+}
+
   componentDidMount(){
     this.props.getAllTasks()
+    this.testData('2002/04/20')
   }
 
   getUserInfo = (e)=> {
@@ -57,6 +80,7 @@ export class Planner extends React.Component {
       userInfo: { ...this.state.userInfo, [name]:value }
     })
   }
+
 
   submitTask = (e) =>{
     e.preventDefault();
@@ -111,3 +135,23 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Planner);
+
+// function validateDOB(bday) {
+  //   var dateString = bday;
+  //   var parts = dateString.split("/");
+  //   console.log(parts)
+  //   var now = new Date();
+  //   console.log(now)
+  //   console.log(now.getDay)
+  //   var birthday = new Date(now.getFullYear(),parts[1]-1,parts[0]);
+  //   console.log(birthday)
+  //   var age = now.getFullYear()-parts[2];
+  //   console.log(age)
+  //   if (now<birthday) age--;
+  //   if (age<18) {
+  //     console.log("You must be over 18 to register");
+  //     return false
+  //   }
+  //   // other validation
+  //   return true;
+  // }
