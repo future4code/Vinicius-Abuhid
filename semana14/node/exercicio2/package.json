@@ -1,0 +1,12 @@
+{
+  "name": "exercicio2",
+  "version": "1.0.0",
+  "description": "semana14 aula44 exercicio2",
+  "main": "exercicio2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node exercicio2.js"
+  },
+  "author": "Vinicius",
+  "license": "ISC"
+}
