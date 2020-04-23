@@ -17,12 +17,12 @@ const mockedTask = [{
 
 let mockedDispatch
 
-beforeEach(()=> {
-    mockedDispatch = jest.fn()
-})
 
 describe('testind asyncs', ()=>{
-    it('getTaskList',async ()=>{
+    beforeEach(()=> {
+        mockedDispatch = jest.fn()
+    })
+    it('getTaskList', async ()=>{
         axios.get = jest.fn(()=>({
             data: mockedTask
         }))

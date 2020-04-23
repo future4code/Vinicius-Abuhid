@@ -16,7 +16,7 @@ const Table = styled.div`
     height: 85vh;
 `
 
-const DayCard = styled.div`
+export const DayCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,6 +37,8 @@ const PageWrapper = styled.div`
   background: url(https://atualissimotreinamentos.com.br/wp-content/uploads/2018/08/business-wallpaper-hd.jpg);
   background-repeat: no-repeat;
   background-size: auto;
+`
+export const Li = styled.li`
 `
 
 export class Planner extends React.Component {
@@ -85,7 +87,7 @@ export class Planner extends React.Component {
                     <ul>
                     {this.props.taskList.map(task =>{
                     if(task.day === day){
-                    return <li key={task.id}>{task.text}</li>}
+                    return <Li key={task.id}>{task.text}</Li>}
                     })}
                     </ul>
                   </DayCard>})
