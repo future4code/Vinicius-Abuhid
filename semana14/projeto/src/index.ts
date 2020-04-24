@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import * as moment from 'moment'
 
 type transactions = {value: number, date: string, description: string}
 
@@ -18,7 +19,7 @@ function createNewAccount(name: string, cpf: number, birthDate: string): void {
     let limitMonth : number = currentDate.getMonth()
     let limitDay : number = currentDate.getDate()
     let limitDate = new Date(limitYear, limitMonth, limitDay)
-    let limitCode : number = limitDate.getTime()
+    let limitCode : number = limitDate.getTime()    
 
     let customerBirth: string[] = birthDate.split('/')
     let customerBirthDate = 
@@ -45,15 +46,42 @@ function createNewAccount(name: string, cpf: number, birthDate: string): void {
     }
 }
 
-function getAllAccounts(): string {
-    try{
-        const accountsList = fs.readFileSync(accountsData)
-        const allAccountsData = accountsList.toString()
-        return allAccountsData
-    }catch(error){
-        return 'informação indisponível no momento. Tente novamente mais tarde'
-    }
+function getAllAccounts():void{
+        const promise = new Promise((resolve, reject) => {
+            fs.readFile(accountsData, (err: Error, data: Buffer)=>{
+                if(err){
+                    reject(err)
+                }
+                else{
+                    const readableData = data.toString()
+                    resolve(readableData)
+                }
+            } )
+        })
+        promise.then(function (result) {
+            console.log(result);
+        }).catch(function (err) {
+            console.log(err);
+        });
 }
 
-createNewAccount('junior', 123, '2004/12/06')
-console.log(getAllAccounts())
+let currentDate = moment()
+console.log(currentDate.format())
+let limitDate = currentDate.subtract(18, 'years')
+console.log(limitDate.format())
+let limitDateStamp = limitDate.unix()
+console.log(limitDateStamp)
+
+let customerBirth = moment('24/04/2004', 'DD/MM/YYYY')
+console.log(customerBirth.format('MMMM'))
+console.log(customerBirth.format())
+let customerBirthStamp = customerBirth.unix()
+console.log(customerBirthStamp)
+
+if(customerBirthStamp <= limitDateStamp){
+    console.log('parabens mizeravi')
+}
+else{
+    console.log('deu ruim, papai')
+}
+// console.log(getAllAccounts())
