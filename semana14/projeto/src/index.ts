@@ -11,77 +11,93 @@ type accountData = {
     transactions: transactions[]
 }
 
-const accountsData = '../costumers.json'
+const accountsData: string = '../costumers.json'
 
 function createNewAccount(name: string, cpf: number, birthDate: string): void {
-    let currentDate = new Date();
-    let limitYear : number = currentDate.getFullYear() - 18
-    let limitMonth : number = currentDate.getMonth()
-    let limitDay : number = currentDate.getDate()
-    let limitDate = new Date(limitYear, limitMonth, limitDay)
-    let limitCode : number = limitDate.getTime()    
+    let currentDate: moment.Moment = moment()
+    let limitDate: moment.Moment = currentDate.subtract(18, 'years')
+    let limitDateStamp: number = limitDate.unix()
+    let customerBirth: moment.Moment = moment(birthDate, 'DD/MM/YYYY')
+    let customerBirthStamp: number = customerBirth.unix()
 
-    let customerBirth: string[] = birthDate.split('/')
-    let customerBirthDate = 
-    new Date(Number(customerBirth[0]), Number(customerBirth[1]) - 1, Number(customerBirth[2]),)
-    let checkLimit: number = customerBirthDate.getTime()
-  
-    if(checkLimit <= limitCode){
-        let newAccount: accountData = {
-            name: name, 
-            cpf: cpf, 
-            birthDate: birthDate,
-            balance: 0,
-            transactions: []
-        }
-        try{
-            fs.appendFileSync(accountsData, `\n${JSON.stringify(newAccount)}`, 'utf8')
-            console.log('Nova conta adicionada ao sistema interno')
-        }catch(error){
-            console.log(error);
-        }
+    if(customerBirthStamp <= limitDateStamp){
+        let allCustomers: accountData[] = getAllAccounts()
+        let cpfList: number[] = allCustomers.map(customer => {
+             return customer.cpf
+        })
+        cpfList.forEach((item, index) => {
+            if(item !== cpf && index === (cpfList.length - 1)){
+                let newAccount: accountData = {
+                    name: name, 
+                    cpf: cpf, 
+                    birthDate: birthDate,
+                    balance: 0,
+                    transactions: []
+                }
+                try{
+                    fs.appendFileSync(accountsData, `;\n${JSON.stringify(newAccount)}`, 'utf8')
+                    console.log('Nova conta adicionada ao sistema interno')
+                }catch(error){
+                    console.log('Erro ao criar a conta, tente novamente mais tarde');
+                }
+            }
+            else if(item !== cpf && index !== (cpfList.length - 1)){}
+            else{
+                console.log('Cpf já utilizado, favor conferir os seus dados')
+            }
+        })
+        
     }
     else{
         console.log('Não foi possível criar uma nova conta, pois o requerente é menor de idade.')
     }
 }
 
-function getAllAccounts():void{
-        const promise = new Promise((resolve, reject) => {
-            fs.readFile(accountsData, (err: Error, data: Buffer)=>{
-                if(err){
-                    reject(err)
-                }
-                else{
-                    const readableData = data.toString()
-                    resolve(readableData)
-                }
-            } )
+function getAllAccounts(){
+    try{
+        let allAccounts = fs.readFileSync(accountsData)
+        let readableData = allAccounts.toString()
+        let customersList: string[] = readableData.split(';')
+        let properCustomersList: accountData[] = customersList.map(customer => {
+        return JSON.parse(customer)
+    })
+        return properCustomersList
+    }catch(error){
+        console.log(error)
+    }
+}
+
+function getBalance(name: string, cpf: number): void | number{
+    let allCustomers: accountData[] = getAllAccounts()
+    let customerData: accountData[] = allCustomers.filter(customer => {
+        return customer.cpf === cpf && customer.name === name
+    })
+    if(customerData.length === 0){
+        console.log('Informações inválidas')
+    }
+    else{
+        let currentBalance: number = customerData[0].balance
+        console.log(currentBalance)
+        return currentBalance}
+}
+
+function addBalance(name: string, cpf: number, value: number): accountData[] | number{
+    let allCustomers: accountData[] = getAllAccounts()
+    let customerData: accountData[] = allCustomers.filter(customer => {
+        return customer.cpf === cpf && customer.name === name
+    })
+    if(customerData.length === 0){
+        console.log('Informações inválidas')
+    }
+    else{
+       customerData.forEach(customer => {
+            customer.balance = customer.balance + value
         })
-        promise.then(function (result) {
-            console.log(result);
-        }).catch(function (err) {
-            console.log(err);
-        });
+        console.log(customerData)
+        return customerData
+    }
 }
 
-let currentDate = moment()
-console.log(currentDate.format())
-let limitDate = currentDate.subtract(18, 'years')
-console.log(limitDate.format())
-let limitDateStamp = limitDate.unix()
-console.log(limitDateStamp)
 
-let customerBirth = moment('24/04/2004', 'DD/MM/YYYY')
-console.log(customerBirth.format('MMMM'))
-console.log(customerBirth.format())
-let customerBirthStamp = customerBirth.unix()
-console.log(customerBirthStamp)
+addBalance('lamark', 126888890, 50)
 
-if(customerBirthStamp <= limitDateStamp){
-    console.log('parabens mizeravi')
-}
-else{
-    console.log('deu ruim, papai')
-}
-// console.log(getAllAccounts())
