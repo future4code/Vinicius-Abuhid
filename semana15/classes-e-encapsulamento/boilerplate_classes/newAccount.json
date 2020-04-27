@@ -1,0 +1,7 @@
+"{
+  name: 'elias',
+  cpf: 8123,
+  birthDate: '23/06/1992',
+  balance: 0,
+  transactions: []
+}"

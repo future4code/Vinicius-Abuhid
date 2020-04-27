@@ -1,6 +1,6 @@
 import React from 'react'
 import AddNewTaskBar,{InputWrapper, 
-    SelectWrapper, ButtonWrapper, FormWrapper} from "./addNewTaskBar"
+    SelectWrapper, FormWrapper} from "./addNewTaskBar"
 import { shallow } from 'enzyme'
 
 describe('testing addNewTaskBar funcionalitys', ()=>{
@@ -20,14 +20,11 @@ describe('testing addNewTaskBar funcionalitys', ()=>{
         onChangeSelect.simulate("change")
         expect(onChange).toHaveBeenCalled()
     })
-    // it('testing onSubmit', ()=>{
-    //     const onSubmit = jest.fn()
-    //     const component = shallow(<AddNewTaskBar submitInfo={onSubmit} />)
-    //     const onSubmitButton = component.find(ButtonWrapper)
-    //     // const onSubmitForm = component.find(FormWrapper)
-    //     expect(onSubmitButton).toHaveLength(1)
-    //     // expect(onSubmitForm).toHaveLength(1)
-    //     onSubmitButton.simulate("click")
-    //     expect(onSubmit).toHaveBeenCalled()
-    // })
+    it('testing onSubmit', ()=>{
+        const onSubmit = jest.fn()
+        const component = shallow(<AddNewTaskBar submitInfo={onSubmit} />)
+        const onSubmitForm = component.find(FormWrapper)
+        onSubmitForm.simulate("submit")
+        expect(onSubmit).toHaveBeenCalled()
+    })
 })
