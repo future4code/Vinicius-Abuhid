@@ -1,7 +1,55 @@
-"{
-  name: 'elias',
-  cpf: 8123,
-  birthDate: '23/06/1992',
-  balance: 0,
-  transactions: []
-}"
+[
+  {
+    "name": "elias",
+    "cpf": 8123,
+    "birthDate": "23/06/1992",
+    "balance": 0,
+    "transactions": []
+  },
+  {
+    "name": "elias",
+    "cpf": 8123,
+    "birthDate": "23/06/1992",
+    "balance": 0,
+    "transactions": []
+  },
+  {
+    "name": "elias",
+    "cpf": 8123,
+    "birthDate": "23/06/1992",
+    "balance": 0,
+    "transactions": [
+      {
+        "date": "23/06/1992",
+        "description": "pão",
+        "value": 80
+      }
+    ]
+  },
+  {
+    "name": "sergio",
+    "cpf": 8123,
+    "birthDate": "23/06/1992",
+    "balance": 80,
+    "transactions": [
+      {
+        "date": "23/06/1992",
+        "description": "pão",
+        "value": 80
+      }
+    ]
+  },
+  {
+    "name": "cleber",
+    "cpf": 8123,
+    "birthDate": "23/06/1992",
+    "balance": 80,
+    "transactions": [
+      {
+        "date": "23/06/1992",
+        "description": "pão",
+        "value": 80
+      }
+    ]
+  }
+]
