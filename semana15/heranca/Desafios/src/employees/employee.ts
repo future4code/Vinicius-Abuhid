@@ -1,5 +1,3 @@
-// import {Chef} from './chef'
-
 export class Employee{
     name: string;
     salary: number
@@ -14,7 +12,3 @@ export class Employee{
         
     }
 }
-
-const newEmployee = new Employee('sergio guedes', 40)
-// const newChef = new Chef('douglas costa', 50)
-console.log(Employee.employeesLenght)

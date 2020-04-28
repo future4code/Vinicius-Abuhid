@@ -1,4 +1,4 @@
-export default abstract class Dish {
+export abstract class Dish {
   protected price: number;
   protected cost: number;
   protected ingredients: string[];

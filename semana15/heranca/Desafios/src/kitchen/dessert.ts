@@ -1,4 +1,4 @@
-import Dish from "./dish";
+import {Dish} from "./dish";
 
 export class Dessert extends Dish {
   public slicesNumber: number;
