@@ -5,6 +5,7 @@ class User {
     private email: string;
     private name: string;
     private password: string;
+    teste: 0
   
     constructor(
           id: string,
@@ -63,7 +64,7 @@ class Customer extends User {
     }
   }
 const newCustomer: Customer = new Customer('id2','vinicius@email.com', 'vinicius', '123','masterCard')
-
+console.log(newCustomer)
 //a. 1
 //b. 2
 
@@ -122,8 +123,9 @@ console.log(newEmployee.calculateTotalSalary())
 // EXERCÍCIO 8
 
 class Seller extends Employee{
-    private salesQuantity: number = 0
+    salesQuantity: number = 0
     private static SELLING_COMMISSION: number = 5
+    
     setSalesQuantity(newSales: number){
         this.salesQuantity = this.salesQuantity + newSales
     }
@@ -152,7 +154,7 @@ console.log(newSeller.getId())
 
 // EXERCICIO 9
 
-newSeller.setSalesQuantity(40)
+// newSeller.setSalesQuantity(40)
 console.log(newSeller.getSalesQuantity())
 
 // a. Só foi possível imprimir no terminal o salesQuantity, depois de criada uma função para tal
@@ -167,3 +169,5 @@ console.log(newSeller.calculateTotalSalary())
 // EXERCÍCIO 11 
 console.log(newEmployee.calculateTotalSalary())
 console.log(newSeller.calculateTotalSalary())
+
+console.log(newSeller)
