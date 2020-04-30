@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Sóstenes",
+    "id": 3,
+    "email": "sostenes@email",
+    "specialties": [
+      "React",
+      " Redux",
+      " Testes"
+    ]
+  },
+  {
+    "name": "Laurinha",
+    "id": 4,
+    "email": "laurinha@email",
+    "specialties": [
+      "React",
+      " Redux",
+      " CSS"
+    ]
+  },
+  {
+    "name": "Joao Vitor",
+    "id": 5,
+    "email": "jv@email",
+    "specialties": [
+      "CSS",
+      " Typescript",
+      " Programação Orientada a Objetos"
+    ]
+  },
+  {
+    "name": "Joao Elias",
+    "id": 6,
+    "email": "eli@email",
+    "specialties": [
+      "Typescript",
+      " Programação Orientada a Objetos e Backend"
+    ]
+  }
+]
