@@ -1,4 +1,4 @@
-import Cashier from './cashier'
+import {Cashier} from './cashier'
 
 class Manager extends Cashier{
     constructor(name: string, salary: number){

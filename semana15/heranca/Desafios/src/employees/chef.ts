@@ -1,14 +1,17 @@
 import {Employee} from './employee'
 import { Dessert } from '../kitchen/dessert'
 import {SaltyDish} from '../kitchen/saltydish'
+import {avaiableDishes} from '../index'
 
 export class Chef extends Employee{
     constructor(name: string, salary: number){
         super(name, salary)
     }
 
-    removeDishFromMenu(){
-        
+    removeDishFromMenu(dishName: string){
+        const teste = Object.keys(avaiableDishes)
+        console.log(teste)
+        return ''
     }
 
     addDishToMenu(price: number, cost: number, ingredients: string[], 
@@ -21,3 +24,6 @@ export class Chef extends Employee{
             }
     }
 }
+
+const test = new Chef('ola', 48)
+console.log(test.removeDishFromMenu('jow'))

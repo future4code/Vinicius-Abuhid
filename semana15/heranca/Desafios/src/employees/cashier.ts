@@ -1,7 +1,7 @@
 import {Employee} from './employee'
-import Dish from '../kitchen/dish'
+import {Dish} from '../kitchen/dish'
 
-export default class Cashier extends Employee{
+export class Cashier extends Employee{
     constructor(name: string, salary: number){
         super(name, salary)
     }
