@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 dotenv.config()
 
-import express from "express";
+import express, { Request, Response } from "express";
 import { AddressInfo } from "net";
 import knex from 'knex'
 
@@ -52,9 +52,49 @@ const getAvgSalaryByGender = async( gender:string): Promise<any>=> {
     return result
 }
 
-// const app = express()
+const app = express()
 
-// app.use(express.json());
+app.get("/actor/?gender=", async (req: Request, res: Response) => {
+    try {
+      const gender = req.query.gender as string;
+      const result = await getSumOfGenders(gender);
+  
+      res.status(200).send({quantity: result})
+    } catch (err) {
+      res.status(400).send({
+        message: err.message,
+      });
+    }
+  });
+
+  app.post('/actor', async (req: Request, res:Response)=> {
+      try{
+        const salary = req.body.salary
+        const id = req.body.id
+        const result = await updateSalary(salary, id)
+        res.status(200).send('salary updated')
+      }
+      catch(err){
+        res.status(200).send({
+            message: err.message
+        })
+      }
+  })
+
+  app.post("/actor", async (req: Request, res: Response) => {
+    try {
+      await updateSalary(req.body.id, req.body.salary);
+      res.status(200).send({
+        message: "Success",
+      });
+    } catch (err) {
+      res.status(400).send({
+        message: err.message,
+      });
+    }
+  });
+
+  app.use(express.json());
 
 // const server = app.listen(process.env.PORT || 3003, () => {
 //     if (server) {
