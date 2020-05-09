@@ -27,85 +27,80 @@ async function createUser(name: string, nickname: string, email: string): Promis
 }
 
 async function getUserById(id: string): Promise<any> {
-    if (id) {
-        const result = await connection('Users').where({ id }).select('name', 'nickname')
-        return result
-    }
-    else {
-        throw 'Por favor preencha todos os campos para prosseguir'
-    }
+    const result = await connection('Users').where({ id }).select('name', 'nickname')
+    return result
 }
 
-async function editUser(id: string, name?: string, nickname?: string, email?:string): Promise<any> {
-    
-    // switch(name && nickname && email){
-    //     case(name):
-        await connection.raw(
-            `UPDATE Users
-            SET name = '${name}'
-            WHERE id = '${id}' `
+async function editUser(id: string, name?: string, nickname?: string, email?: string): Promise<any> {
+    if (name) {
+        if (!nickname && !email) {
+            await connection.raw(
+                `UPDATE Users
+                SET name = '${name}'
+                WHERE id = '${id}' `
             )
-    //     break;
-    //     case(nickname):
-    //     await connection.raw(
-    //         `UPDATE Users
-    //         SET nickname='${nickname}'
-    //         WHERE id = ${id} `
-    //         )
-    //     break;
-    //     case(email):
-    //     await connection.raw(
-    //         `UPDATE Users
-    //         SET email = '${email}'
-    //         WHERE id = ${id} `
-    //         )
-    //     break;
-    //     case(name && nickname):
-    //     await connection.raw(
-    //         `UPDATE Users
-    //         SET name = '${name}', nickname='${nickname}'
-    //         WHERE id = ${id} `
-    //         )
-    //     break;
-    //     case(name && email):
-    //     await connection.raw(
-    //         `UPDATE Users
-    //         SET name = '${name}', email='${email}'
-    //         WHERE id = ${id} `
-    //         )
-    //     break;
-    //     case(nickname && email):
-    //     await connection.raw(
-    //         `UPDATE Users
-    //         SET nickname = '${nickname}', email='${email}'
-    //         WHERE id = ${id} `
-    //         )
-    //     break;
-    //     case(nickname && email && name):
-    //     await connection.raw(
-    //         `UPDATE Users
-    //         SET nickname = '${nickname}', email='${email}', name='${name}'
-    //         WHERE id = ${id} `
-    //         )
-    //     break;
-    //     default:
-    //         return 'dados incompletos'
-    //     break;
-    // }
+        }
+        else if (nickname && !email) {
+            await connection.raw(
+                `UPDATE Users
+                SET name = '${name}', nickname='${nickname}'
+                WHERE id = ${id} `
+            )
+        }
+        else if (!nickname && email) {
+            await connection.raw(
+                `UPDATE Users
+                SET name = '${name}', email='${email}'
+                WHERE id = ${id} `
+            )
+        }
+        else {
+            await connection.raw(
+                `UPDATE Users
+                SET nickname = '${nickname}', email='${email}', name='${name}'
+                WHERE id = ${id} `
+            )
+        }
+    }
+    else {
+        if (nickname && email) {
+            await connection.raw(
+                `UPDATE Users
+                SET email = '${email}', nickname='${nickname}'
+                WHERE id = ${id} `
+            )
+        }
+        else if (nickname && !email) {
+            await connection.raw(
+                `UPDATE Users
+                SET nickname='${nickname}'
+                WHERE id = ${id} `
+            )
+        }
+        else if (!nickname && email) {
+            await connection.raw(
+                `UPDATE Users
+                SET email='${email}'
+                WHERE id = ${id} `
+            )
+        }
+    }
 }
 
 async function createTask(title: string, description: string, limitDate: string, creatorUserId: string)
     : Promise<any> {
+    const myDate = moment(limitDate, "DD-MM-YYYY").format("YYYY-MM-DD")
     const id = (new Date).getTime()
-    await connection('Tasks').insert({ title, description, limitDate, creatorUserId, id})
+    await connection('Tasks').insert({ title, description, limitDate: myDate, creatorUserId, id })
 }
 
-createTask('oi','oi','21/03/2020','10')
-
-async function getTaskById(id: number): Promise<any> {
+async function getTaskById(id: string): Promise<any> {
     const result = connection.raw(
-        `SELECT t.taskId, t.title, t.description, t.limitDate, t.status, u.id, u.nickname From Task t
-        JOIN Users u ON u.id = t.user_id `
+        `SELECT t.title, t.description, t.limitDate, t.creatorUserId, t.id, u.name as creatorName,
+        u.nickname as creatorNickname
+        From Tasks t
+        JOIN Users u ON u.id = t.creatorUserId
+        WHERE t.id = "${id}"; `
     )
     return result
 }
@@ -138,66 +133,100 @@ app.put('/user', async (req: Request, res: Response) => {
         }
     }
     else {
-        res.status(400).send({ message: 'Por favor preencha os campos corretamnete para prosseguir' })
+        res.status(400).send({ message: 'Por favor preencha os campos corretamente para prosseguir' })
     }
 })
 
-app.get('/user/:id', async (req: Request, res: Response) => {
-    if(req.params.id){
+// const getUserPath = '/user/:id'
+
+app.get(`/user/:id`, async (req: Request, res: Response) => {
     try {
         const result = await getUserById(req.params.id)
-        if(result[0]){
-        res.status(200).send(result)
+        if (result[0]) {
+            res.status(200).send(result)
         }
-        else{
+        else {
             res.status(400).send({ message: 'Usuário não encontrado' })
         }
     }
     catch (err) {
         res.status(400).send({ message: err.message })
+    }
+})
+
+app.get('/user/', async (req: Request, res: Response) => {
+    res.status(400).send({
+        message: 'Por favor preencha os campos corretamente para prosseguir'
+    })
+})
+
+app.post('/user/edit', async (req: Request, res: Response) => {
+    if(req.body.id){
+    if (req.body.name || req.body.nickname || req.body.email) {
+        try {
+            editUser(req.body.id, req.body.name, req.body.nickname, req.body.email)
+            res.status(200).send({
+                message: 'success'
+            })
+        }
+        catch (err) {
+            res.status(400).send({ message: err.message })
+        }
+    }
+    else {
+        res.status(400).send({
+            message: "Por favor preencha ao menos um dos campos para prosseguir"
+        })
     }}
     else{
         res.status(400).send({
-            message: 'Por favor preencha os campos corretamnete para prosseguir'
+            message: "Por favor selecione a id de um usuário para poder modifica-lo"
         })
     }
 })
 
-app.post('/user/edit', async (req: Request, res:Response)=>{
-    if(req.body.name && req.body.name !== ''){
-    try{
-        editUser(req.body.id, req.body.name, req.body.nickname, req.body.email)
-        res.status(200).send({
-            message: 'success'
-        })
-    }
-    catch(err){
-        res.status(400).send({message: err.message})
-    }}
-    else{
-        res.status(400).send({
-            message: "O valor não pode ser passado em branco"
-        })
-    }
-})
-
-app.put('/task', async (req: Request, res: Response)=> {
-    if(req.body.title && req.body.description && req.body.limitDate && req.body.creatorUserId){
-        try{
+app.put('/task', async (req: Request, res: Response) => {
+    if (req.body.title && req.body.description && req.body.limitDate && req.body.creatorUserId) {
+        try {
             await createTask(req.body.title, req.body.description, req.body.limitDate, req.body.creatorUserId)
             res.status(200).send({
                 message: 'Tarefa criada com sucesso'
             })
         }
-        catch(err){
+        catch (err) {
             res.status(400).send({
                 message: err.message
             })
         }
     }
-    else{
+    else {
         res.status(400).send({
-            message: 'Por favor preencha os campos corretamnete para prosseguir'
+            message: 'Por favor preencha os campos corretamente para prosseguir'
         })
     }
+})
+
+app.get('/task/:id', async (req: Request, res: Response) => {
+    try {
+        const result = await getTaskById(req.params.id)
+        if (result[0][0]) {
+            let newObject = result[0][0]
+            newObject.limitDate = moment(newObject.limitDate, 'YYYY-MM-DD').format('DD/MM/YYYY')
+            res.status(200).send(newObject)
+        }
+        else {
+            res.status(400).send({ message: 'Tarefa não encontrada' })
+        }
+    }
+    catch (err) {
+        res.status(400).send({
+            message: err.message
+        })
+    }
+})
+
+app.get('/task/', async (req: Request, res: Response) => {
+    res.status(400).send({
+        message: 'Por favor preencha os campos corretamente para prosseguir'
+    })
 })
