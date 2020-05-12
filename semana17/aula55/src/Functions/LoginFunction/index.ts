@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express'
-import { GenerateId } from '../../services/GenerateId/index'
 import { CreateUser } from '../../services/CreateUser/index'
 import { GenerateToken } from '../../services/GenerateToken/index'
 import { HashManager } from '../../services/HashManager/index'
+import { BaseDataBase } from '../../services/BaseDataBase'
 
 export const login = async (req: Request, res: Response) => {
   const userData = {
@@ -19,7 +19,7 @@ export const login = async (req: Request, res: Response) => {
 
       if (passwordChecker) {
         const newToken: GenerateToken = new GenerateToken
-        const userToken = newToken.generateToken({ id: user.id, role: user.role})
+        const userToken = newToken.generateToken({ id: user.id, role: user.role })
         res.status(200).send({
           token: userToken
         })
@@ -32,6 +32,9 @@ export const login = async (req: Request, res: Response) => {
       res.status(400).send({
         message: err.message
       })
+    }
+    finally {
+      await BaseDataBase.destroyConnection()
     }
   }
   else {

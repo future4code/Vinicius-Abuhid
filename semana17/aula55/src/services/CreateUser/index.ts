@@ -1,45 +1,36 @@
 import knex from 'knex'
 import dotenv from "dotenv";
+import { BaseDataBase } from '../BaseDataBase';
 dotenv.config();
 
-export class CreateUser{
-    private connection = knex({
-        client: "mysql",
-        connection: {
-          host: process.env.DB_HOST,
-          port: Number(process.env.DB_PORT || "3306"),
-          user: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.DB_NAME,
-        },
-      })
+export class CreateUser extends BaseDataBase {
 
     private static tableName: string = 'UserList'
 
-    public async searchUser(email:string){
-        const result = await this.connection.raw(`
+    public async searchUser(email: string) {
+        const result = await this.getConnection().raw(`
         SELECT * From ${CreateUser.tableName}
         WHERE email = '${email}'
         `)
         return result[0];
     }
 
-    public async createUser(email: string, password: string, id: string, role: string):Promise<void>{
-        this.connection.raw(`
+    public async createUser(email: string, password: string, id: string, role: string): Promise<void> {
+        this.getConnection().raw(`
         INSERT INTO ${CreateUser.tableName}(email, password, id, role)
         VALUES('${email}','${password}','${id}','${role}');
         `)
     }
 
-    public async searchUserById(id:string){
-        const result = await this.connection.raw(`
+    public async searchUserById(id: string) {
+        const result = await this.getConnection().raw(`
         SELECT * From ${CreateUser.tableName}
         WHERE id = '${id}'
         `)
         return result[0];
     }
 
-    public async deleteUserId(id:string): Promise<void>{
-        await this.connection(CreateUser.tableName).where({id}).delete()
+    public async deleteUserId(id: string): Promise<void> {
+        await this.getConnection()(CreateUser.tableName).where({ id }).delete()
     }
 }

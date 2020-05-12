@@ -1,6 +1,7 @@
 import { GenerateToken } from "../../services/GenerateToken"
 import express, { Response, Request } from 'express'
 import { CreateUser } from "../../services/CreateUser"
+import { BaseDataBase } from "../../services/BaseDataBase"
 
 export const deleteUser = async (req: Request, res: Response): Promise<any> => {
     try {
@@ -20,5 +21,8 @@ export const deleteUser = async (req: Request, res: Response): Promise<any> => {
         res.status(400).send({
             message: err.message
         })
+    }
+    finally {
+        await BaseDataBase.destroyConnection()
     }
 }

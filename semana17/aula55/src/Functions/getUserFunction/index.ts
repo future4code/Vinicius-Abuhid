@@ -1,8 +1,9 @@
 import express, { Request, Response } from 'express'
 import { CreateUser } from "../../services/CreateUser"
 import { GenerateToken } from '../../services/GenerateToken'
+import { BaseDataBase } from '../../services/BaseDataBase'
 
-export const getUserById = (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
     try {
         const generateToken = new GenerateToken
         const tokenValidation = generateToken.verifyToken(req.headers.token as string)
@@ -14,5 +15,8 @@ export const getUserById = (req: Request, res: Response) => {
         res.status(400).send({
             message: err.message
         })
+    }
+    finally {
+        await BaseDataBase.destroyConnection()
     }
 }
