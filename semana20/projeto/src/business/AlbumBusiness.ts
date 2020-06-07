@@ -11,9 +11,7 @@ export class AlbumBusiness {
         const id = this.idGenerator.generateId()
         let genresListID = []
         for (let genre of genresList) {
-            console.log('genre:', genre)
             let genreData = await this.genreDataBase.getGenreByName(genre.trim())
-            console.log("genreData: ", genreData)
             if (!genreData) {
                 throw new InvalidData(`O gènero ${genre} não está cadastrado no sistema. 
                 Cadastre todos os gêneros para poder criar um albúm`)

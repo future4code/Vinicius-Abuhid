@@ -14,8 +14,4 @@ export class GenreBusiness{
         const result = await this.genreDataBase.getAllGenres()
         return result
     }
-
-    // public async getGenreByName(){
-    //     const result = await this.ge
-    // }
 }
