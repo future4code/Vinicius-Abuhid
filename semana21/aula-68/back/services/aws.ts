@@ -1,4 +1,7 @@
-import { S3 } from "aws-sdk"
+import { S3 } from "aws-sdk";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export class AWS {
     s3 = new S3({
@@ -9,9 +12,9 @@ export class AWS {
     public async uploadFile(input: UploadFileInput): Promise<UploadFileOutput> {
         const result = await this.s3
             .upload({
-                Bucket: "bucket-sagan",
+                Bucket: "bucket-do-vinicius",
                 Key: input.name,
-                Body: input.file,
+                Body: input.data,
             })
             .promise();
 
@@ -22,7 +25,7 @@ export class AWS {
 }
 export interface UploadFileInput {
     name: string;
-    file: any;
+    data: any;
 }
 
 interface UploadFileOutput {
