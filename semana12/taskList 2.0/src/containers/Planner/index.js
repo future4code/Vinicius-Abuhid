@@ -4,6 +4,7 @@ import AddNewTaskBar from '../../components/addNewTaskBar'
 import styled from 'styled-components'
 import {getTaskList, addNewTask} from '../../actions/actions'
 import {Paper} from '@material-ui/core'
+import {store} from '../App/index'
 
 const Table = styled.div`
     display: grid;
@@ -50,6 +51,7 @@ export class Planner extends React.Component {
   }
 
   componentDidMount(){
+    console.log(store)
     this.props.getAllTasks()
   }
 
