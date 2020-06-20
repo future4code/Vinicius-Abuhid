@@ -1,0 +1,11 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r <img src=\"./Labenu.png\" alt=\"slogan Labenu\" width=\"200px\">\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
