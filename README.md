@@ -28,7 +28,9 @@ Ferramentas e tecnologias ensiadas durante o curso
 
 ## Principais projetos
 Semana 1 - [Portfólio](./semana1/projeto/)<br>
-Semana 2 - [F4life]()<br>
+<a href='./semana2/projeto/'>
+Semana 2 - F4life<br>
+</a>
 Semana 3 - [Blackjack]()<br>
 Semana 4 - [Lista de exercícios javascript]()<br>
 Semana 5 - [Whats4]()<br>
