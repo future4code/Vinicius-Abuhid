@@ -23,6 +23,7 @@ export class AWS {
         };
     }
 }
+
 export interface UploadFileInput {
     name: string;
     data: any;
