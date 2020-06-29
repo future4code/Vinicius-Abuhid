@@ -11,7 +11,7 @@ Projeto semana n°12: Planner
 
 <p align="center">Planner designado para que o usuário possa dividir as tarefas dele conforme o dia da semana </p>
 
-Site do projeto: [link](https://possible-powder.surge.sh)
+Site do projeto: [link](http://spotenu.s3-website-us-east-1.amazonaws.com/)
 
 <img src="./assets/gif-site.gif" alt="gif-projeto-spoti4"></img>
 
