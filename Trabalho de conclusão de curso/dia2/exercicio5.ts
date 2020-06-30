@@ -1,0 +1,1 @@
+// Ordem de eficiência: O(1), O(n), O(n²)
