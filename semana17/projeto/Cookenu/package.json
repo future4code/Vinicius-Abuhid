@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "ts-node-dev ./src/index.ts",
-    "build": "tsc"
+    "build": "rm -rf build && tsc",
+    "postbuild": "cp ./package.json build && cd build && npm i"
   },
   "author": "vinicius abuhid thales milanezi\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[De thales milanezi",
   "license": "ISC",
@@ -22,8 +23,9 @@
     "express": "^4.17.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
+    "lbn-lambda-express": "^0.1.10",
     "mysql": "^2.18.1",
-    "ts-node-dev": "^1.0.0-pre.44",
+    "ts-node-dev": "^1.0.0-pre.49",
     "typescript": "^3.9.2",
     "uuid": "^8.0.0"
   }

@@ -14,7 +14,7 @@ import { DeleteRecipe } from "./endpoints/DeleteRecipe";
 
 
 
-const app = express()
+export const app = express()
 app.use(express.json());
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {

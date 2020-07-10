@@ -6,7 +6,7 @@ import { genreRouter } from './router/genreRouter';
 import { albumRouter } from './router/albumRouter';
 import { musicRouter } from './router/musicRouter'
 
-const app = express()
+export const app = express()
 dotenv.config();
 app.use(express.json());
 
