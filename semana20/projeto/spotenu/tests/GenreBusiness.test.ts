@@ -1,5 +1,4 @@
 import { GenreBusiness } from "../src/business/GenreBusiness"
-import { GenreDataBase } from "../src/data/GenreDataBase"
 
 describe('testing addGenre', ()=> {
     let idGenerator = {}
