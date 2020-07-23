@@ -17,6 +17,8 @@ describe('testing planner functions', ()=>{
             />)
         component.state().userInfo = {text: 'testText', day: 'testDay'}
         const e = { preventDefault: jest.fn() }
+        console.log(component)
+        console.log(component.instance())
         component.instance().submitTask(e)
         expect(e.preventDefault).toHaveBeenCalled()
         expect(mockedOnSubmit).toHaveBeenCalledWith({text: 'testText', day: 'testDay'})
