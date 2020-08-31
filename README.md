@@ -27,28 +27,26 @@ Ferramentas e tecnologias ensiadas durante o curso
 </p>
 
 ## Principais projetos
-Semana 1 - [Portfólio](./semana1/projeto/)<br>
-<a href='./semana2/projeto/'>
-Semana 2 - F4life<br>
-</a>
-Semana 3 - [Blackjack]()<br>
-Semana 4 - [Lista de exercícios javascript]()<br>
-Semana 5 - [Whats4]()<br>
-Semana 6 - Ecommerce
-Semana 7 - [Spoti4]()<br>
-Semana 8 - [Future Ninjas]()<br>
-Semana 9 - [Astromatch]()<br>
-Semana 10 - [FutureX]()<br>
-Semana 11 - [4eddit]()<br>
-Semana 12 - [Planner]()<br>
-Semana 13 - iFuture<br>
-Semana 14 - Sistema bancário<br>
-Semana 15 - Labenu system<br>
-Semana 16 - Lista de tarefas<br>
-Semana 17 - Cookenu<br>
-Semana 18-19 - Labook<br>
-Semana 20 - Spotenu<br>
-Projeto final - Spotenu 2.0<br>
+Semana 1 - [Portfólio](./semana1/projeto/portfolio)<br>
+Semana 2 - [F4life](./semana1/projeto/sagan-f4life)<br>
+Semana 3 - [Blackjack](./semana1/projeto/blackjack)<br>
+Semana 4 - [Lista de exercícios javascript](./semana1/projeto/lista-de-exercicios)<br>
+Semana 5 - [Whats4](./semana1/projeto/whats4)<br>
+Semana 6 - Ecommerce <br>
+Semana 7 - [Spoti4](./semana1/projeto/spoti4)<br>
+Semana 8 - [Future Ninjas](./semana1/projeto/futureninjas)<br>
+Semana 9 - [Astromatch](./semana1/projeto/astro-match)<br>
+Semana 10 - [FutureX](./semana1/projeto/futureX)<br>
+Semana 11 - [4eddit](./semana1/projeto/4eddit)<br>
+Semana 12 - [Planner](./semana1/projeto/taskList)<br>
+Semana 13 - [iFuture](./semana1/projeto/sagan-4food-B)<br>
+Semana 14 - [Sistema bancário](./semana1/projeto/sistema-bancário)<br>
+Semana 15 - [Labenu system](./semana1/projeto/labenu-system/)<br>
+Semana 16 - [Lista de tarefas](./semana1/projeto/lista-de-tarefas)<br>
+Semana 17 - [Cookenu](./semana1/projeto/Cookenu)<br>
+Semana 18-19 - [Labook](./semana1/projeto/labook)<br>
+Semana 20 - [Spotenu](./semana1/projeto/spotenu)<br>
+Projeto final - [Spotenu 2.0](https://github.com/ViniciusAbuhid/Spotenu-full-stack-version)<br>
 
 
 ## Licença
